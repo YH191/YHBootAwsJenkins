@@ -1,9 +1,11 @@
 package com.yh.book.springboot.web;
 
+import com.yh.book.springboot.config.auth.LoginUser;
 import com.yh.book.springboot.config.auth.dto.SessionUser;
 import com.yh.book.springboot.service.posts.PostsService;
 import com.yh.book.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +26,8 @@ public class IndexController {
     }
 
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         model.addAttribute("posts", postsService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if(user != null){
             model.addAttribute("userName", user.getName());
         }
