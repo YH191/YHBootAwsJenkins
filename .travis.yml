@@ -18,9 +18,9 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r yhpj-springboot2-webservice *
+  - zip -r yh-springboot2-webservice *
   - mkdir -p deploy
-  - mv yhpj-springboot2-webservice.zip deploy/yhpj-springboot2-webservice.zip
+  - mv yh-springboot2-webservice.zip deploy/yh-springboot2-webservice.zip
 
 deploy:
   - provider: s3
@@ -31,6 +31,17 @@ deploy:
     skip_cleanup: true
     acl: private # zip 파일 접근을 private로
     local_dir: deploy # before_deploy에서 생성한 디렉토리
+    wait-until-deployed: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: yhpj-springboot2-build # S3 버킷
+    key: yhpj-springboot2-webservice.zip # 빌드 파일을 압축해서 전달
+    bundle_type: zip
+    application: yhpj-springboot2-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: yhpj-springboot2-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    region: ap-northeast-2
     wait-until-deployed: true
 
 # CI 실행 완료시 메일로 알람.
