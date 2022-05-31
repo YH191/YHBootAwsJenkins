@@ -48,7 +48,8 @@ public class IndexController {
     }
 
     @GetMapping("/posts/read/{id}")
-    public String read(@PathVariable Long id, Model model) {
+    public String read(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
+        model.addAttribute("userName", user.getName());
         PostsResponseDto dto = postsService.findById(id);
         postsService.updateView(id);  //views ++
         model.addAttribute("posts", dto);
@@ -57,7 +58,8 @@ public class IndexController {
     }
 
     @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model){
+    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user){
+        model.addAttribute("userName", user.getName());
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("posts", dto);
 
