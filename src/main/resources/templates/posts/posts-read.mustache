@@ -21,22 +21,26 @@
                        id="title" value="{{posts.title}}" readonly>
             </div>
             <div class="form-group">
-                <label for="author"> 작성자 </label>
+                <label for="author">작성자</label>
                 <input type="text" class="form-control"
                        id="author" value="{{posts.author}}" readonly>
             </div>
             <div class="form-group">
-                <label for="content"> 내용 </label>
+                <label for="content">내용</label>
                 <textarea class="form-control"
                           id="content" readonly>{{posts.content}}</textarea>
             </div>
         </form>
         <a href="/" role="button" class="btn btn-secondary">목록</a>
         {{! Buttons }}
+        {{#author}}
         <a href="/posts/update/{{posts.id}}" role="button"
            class="btn btn-primary bi bi-pencil-square">수정</a>
         <button type="button" class="btn btn-danger"
                 id="btn-delete">삭제</button>
+        {{/author}}
+        {{^author}}
+        {{/author}}
     </div>
 </div>
 {{>layout/footer}}

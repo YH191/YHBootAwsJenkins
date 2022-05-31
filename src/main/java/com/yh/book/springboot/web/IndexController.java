@@ -50,6 +50,7 @@ public class IndexController {
     @GetMapping("/posts/read/{id}")
     public String read(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
         model.addAttribute("userName", user.getName());
+        model.addAttribute("author", user.getName());
         PostsResponseDto dto = postsService.findById(id);
         postsService.updateView(id);  //views ++
         model.addAttribute("posts", dto);

@@ -18,7 +18,6 @@ apply plugin: 'io.spring.dependency-management'
 
 group 'org.yh.shop'
 version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
-sourceCompatibility = 1.8
 
 configurations {
     compileOnly {
