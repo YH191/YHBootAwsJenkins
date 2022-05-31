@@ -1,19 +1,24 @@
 {{>layout/header}}
 
-<h1>게시글 수정</h1>
 
-<div class="col-md-12">
+<div class="col-md-12" align="center">
     <div class="col-md-4">
+        <h1>게시글 읽기</h1>
         <form>
             <div class="form-group">
                 <label for="title">글 번호</label>
                 <input type="text" class="form-control"
                        id="id" value="{{posts.id}}" readonly>
+            </div>t
+            <div class="form-group">
+                <label for="content"> 조회수 </label>
+                <input type="text" class="form-control"
+                       id="conent" value="{{posts.view}}" readonly>
             </div>
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" class="form-control"
-                       id="title" value="{{posts.title}}">
+                       id="title" value="{{posts.title}}" readonly>
             </div>
             <div class="form-group">
                 <label for="author"> 작성자 </label>
@@ -23,15 +28,15 @@
             <div class="form-group">
                 <label for="content"> 내용 </label>
                 <textarea class="form-control"
-                          id="content">{{posts.content}}</textarea>
+                          id="content" readonly>{{posts.content}}</textarea>
             </div>
         </form>
-        <a href="/" role="button" class="btn btn-secondary">취소</a>
-        <button type="button" class="btn btn-primary"
-                id="btn-update">수정 완료</button>
+        <a href="/" role="button" class="btn btn-secondary">목록</a>
+        {{! Buttons }}
+        <a href="/posts/update/{{posts.id}}" role="button"
+           class="btn btn-primary bi bi-pencil-square">수정</a>
         <button type="button" class="btn btn-danger"
                 id="btn-delete">삭제</button>
     </div>
 </div>
-
 {{>layout/footer}}
