@@ -1,7 +1,7 @@
 package com.yh.book.springboot.config.auth;
 
 import com.yh.book.springboot.config.auth.dto.OAuthAttributes;
-import com.yh.book.springboot.config.auth.dto.SessionUser;
+import com.yh.book.springboot.config.auth.dto.UserSessionDto;
 import com.yh.book.springboot.domain.user.User;
 import com.yh.book.springboot.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class CustomOAuth2UserService implements
         User user = saveOrUpdate(attributes);
 
         /* 세션 정보를 저장하는 직렬화된 dto 클래스*/
-        httpSession.setAttribute("user", new SessionUser(user));
+        httpSession.setAttribute("user", new UserSessionDto(user));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleValue())),

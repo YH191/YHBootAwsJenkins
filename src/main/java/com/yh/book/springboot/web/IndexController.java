@@ -1,7 +1,7 @@
 package com.yh.book.springboot.web;
 
 import com.yh.book.springboot.config.auth.LoginUser;
-import com.yh.book.springboot.config.auth.dto.SessionUser;
+import com.yh.book.springboot.config.auth.dto.UserSessionDto;
 import com.yh.book.springboot.domain.posts.Posts;
 import com.yh.book.springboot.service.posts.PostsService;
 import com.yh.book.springboot.web.dto.PostsResponseDto;
@@ -25,14 +25,14 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/posts/write")
-    public String postsWrite(Model model, @LoginUser SessionUser user){
+    public String postsWrite(Model model, @LoginUser UserSessionDto user){
         model.addAttribute("userName", user.getUsername());
         return "posts/posts-write";
     }
 
     @GetMapping("/")    /* default size = 10 */
     public String index(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable, @LoginUser SessionUser user) {
+            Pageable pageable, @LoginUser UserSessionDto user) {
         model.addAttribute("posts", postsService.findAllDesc());
         if(user != null){
             model.addAttribute("userName", user.getUsername());
@@ -48,7 +48,7 @@ public class IndexController {
     }
 
     @GetMapping("/posts/read/{id}")
-    public String read(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
+    public String read(@PathVariable Long id, Model model, @LoginUser UserSessionDto user) {
         model.addAttribute("userName", user.getUsername());
         model.addAttribute("author", user.getUsername());
         PostsResponseDto dto = postsService.findById(id);
@@ -59,7 +59,7 @@ public class IndexController {
     }
 
     @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user){
+    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser UserSessionDto user){
         model.addAttribute("userName", user.getUsername());
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("posts", dto);
@@ -69,7 +69,7 @@ public class IndexController {
 
 
     @GetMapping("/posts/search")
-    public String search(String keyword, Model model, @LoginUser SessionUser user,
+    public String search(String keyword, Model model, @LoginUser UserSessionDto user,
                          @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Posts> searchList = postsService.search(keyword, pageable);
 

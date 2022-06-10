@@ -1,6 +1,6 @@
 package com.yh.book.springboot.config.auth;
 
-import com.yh.book.springboot.config.auth.dto.SessionUser;
+import com.yh.book.springboot.config.auth.dto.UserSessionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public boolean supportsParameter(MethodParameter parameter){
         boolean isLoginUserAnnotation = parameter.getParameterAnnotation(LoginUser.class) != null;
-        boolean isUserClass = SessionUser.class.equals(parameter.getParameterType());
+        boolean isUserClass = UserSessionDto.class.equals(parameter.getParameterType());
         return isLoginUserAnnotation && isUserClass;
     }
 
