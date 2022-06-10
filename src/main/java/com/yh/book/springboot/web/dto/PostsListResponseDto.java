@@ -3,14 +3,12 @@ package com.yh.book.springboot.web.dto;
 import com.yh.book.springboot.domain.posts.Posts;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 public class PostsListResponseDto {
     private Long id;
     private String title;
     private String author;
-    private LocalDateTime modifiedDate;
+    private String modifiedDate;
     private int view;
 
     public PostsListResponseDto(Posts entity){
