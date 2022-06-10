@@ -19,5 +19,4 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     int updateView(@Param("id") Long id);
 
     Page<Posts> findByTitleContaining(String keyword, Pageable pageable);
-
 }

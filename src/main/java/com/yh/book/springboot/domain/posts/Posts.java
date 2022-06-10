@@ -27,7 +27,6 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
 
-
     @Builder
     public Posts(String title, String content, String author, int view){
         this.title = title;
