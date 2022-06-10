@@ -31,7 +31,10 @@ public class CustomOAuth2UserService implements
                 new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
+        /* OAuth2 서비스 id 구분코드 ( 구글, 카카오, 네이버 ) */
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
+
+        /* OAuth2 로그인 진행시 키가 되는 필드 값 (PK) (구글의 기본 코드는 "sub") */
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
@@ -39,17 +42,19 @@ public class CustomOAuth2UserService implements
                 oAuth2User.getAttributes());
 
         User user = saveOrUpdate(attributes);
+
+        /* 세션 정보를 저장하는 직렬화된 dto 클래스*/
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
+                Collections.singleton(new SimpleGrantedAuthority(user.getRoleValue())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey());
         }
 
         private User saveOrUpdate(OAuthAttributes attributes){
             User user = userRepository.findByEmail(attributes.getEmail())
-                    .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
+                    .map(User::updateModifiedDate)
                     .orElse(attributes.toEntity());
 
         return userRepository.save(user);

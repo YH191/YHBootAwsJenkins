@@ -11,22 +11,25 @@ import java.util.Map;
 public class OAuthAttributes {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
-    private String name;
+    private String username;
+    private String nickname;
     private String email;
-    private String picture;
+    private Role role;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name,
-                           String email, String picture){
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String username,
+                           String nickname, String email, Role role){
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
-        this.name = name;
+        this.username = username;
+        this.nickname = nickname;
         this.email = email;
-        this.picture = picture;
+        this.role = role;
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName,
                                      Map<String, Object> attributes){
+        /* 구글인지 네이버인지 카카오인지 구분하기 위한 메소드 (ofNaver, ofKaKao) */
         if("naver".equals(registrationId)){
             return ofNaver("id", attributes);
         }
@@ -36,9 +39,9 @@ public class OAuthAttributes {
     private static OAuthAttributes ofGoogle(String userNameAttributeName,
                                             Map<String, Object> attributes){
         return OAuthAttributes.builder()
-                .name((String) attributes.get("name"))
+                .username((String) attributes.get("email"))
                 .email((String) attributes.get("email"))
-                .picture((String) attributes.get("picture"))
+                .nickname((String) attributes.get("name"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -46,21 +49,22 @@ public class OAuthAttributes {
 
     private static OAuthAttributes ofNaver(String userNameAttributeName,
                                             Map<String, Object> attributes){
+        /* JSON형태이기 때문에 Map을 통해 데이터를 가져온다. */
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
         return OAuthAttributes.builder()
-                .name((String) response.get("name"))
+                .username((String) response.get("email"))
                 .email((String) response.get("email"))
-                .picture((String) response.get("profile_image"))
+                .nickname((String) response.get("nickname"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
     public User toEntity(){
         return User.builder()
-                .name(name)
+                .username(email)
                 .email(email)
-                .picture(picture)
-                .role(Role.GUEST)
+                .nickname(nickname)
+                .role(Role.SOCIAL)
                 .build();
     }
 

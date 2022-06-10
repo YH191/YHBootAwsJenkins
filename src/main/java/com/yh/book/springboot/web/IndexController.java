@@ -26,7 +26,7 @@ public class IndexController {
 
     @GetMapping("/posts/write")
     public String postsWrite(Model model, @LoginUser SessionUser user){
-        model.addAttribute("userName", user.getName());
+        model.addAttribute("userName", user.getUsername());
         return "posts/posts-write";
     }
 
@@ -35,7 +35,7 @@ public class IndexController {
             Pageable pageable, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
         if(user != null){
-            model.addAttribute("userName", user.getName());
+            model.addAttribute("userName", user.getUsername());
         }
         Page<Posts> list = postsService.pageList(pageable);
         model.addAttribute("posts", list);
@@ -49,8 +49,8 @@ public class IndexController {
 
     @GetMapping("/posts/read/{id}")
     public String read(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
-        model.addAttribute("userName", user.getName());
-        model.addAttribute("author", user.getName());
+        model.addAttribute("userName", user.getUsername());
+        model.addAttribute("author", user.getUsername());
         PostsResponseDto dto = postsService.findById(id);
         postsService.updateView(id);  //views ++
         model.addAttribute("posts", dto);
@@ -60,7 +60,7 @@ public class IndexController {
 
     @GetMapping("/posts/update/{id}")
     public String postsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user){
-        model.addAttribute("userName", user.getName());
+        model.addAttribute("userName", user.getUsername());
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("posts", dto);
 
@@ -69,10 +69,11 @@ public class IndexController {
 
 
     @GetMapping("/posts/search")
-    public String search(String keyword, Model model,
+    public String search(String keyword, Model model, @LoginUser SessionUser user,
                          @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Posts> searchList = postsService.search(keyword, pageable);
 
+        model.addAttribute("userName", user.getUsername());
         model.addAttribute("searchList", searchList);
         model.addAttribute("keyword", keyword);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());

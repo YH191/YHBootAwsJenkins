@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -22,15 +23,17 @@ public abstract class BaseTimeEntity {
     @LastModifiedDate
     private String modifiedDate;
 
+    /* 해당 엔티티를 저장하기 이전에 실행 */
     @PrePersist
     public void onPrePersist(){
         this.createdDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         this.modifiedDate = this.createdDate;
     }
 
+    /* 해당 엔티티를 업데이트 하기 이전에 실행*/
     @PreUpdate
     public void onPreUpdate(){
-        this.modifiedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     }
 
 }
