@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
         <div id="header" class="d-flex flex-row-reverse bd-highlight">
+            <a href="/" role="button" class="btn btn-secondary active">메인</a>
             <form action="/posts/search" method="GET" class="form-inline p-2 bd-highlight" role="search">
                 <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
                 <button class="btn btn-success bi bi-search"></button>
@@ -16,18 +17,18 @@
         </div>
     <h3 style="text-align:center">yhpj</h3>
     <div style="text-align:right">
-            {{#userName}}
-                <span id="user">{{userName}}님 로그인 상태   </span>
+            {{#user}}
+                <span id="user">{{user}}님 로그인 상태   </span>
                 <a href="/logout" class="btn btn-info active" role="button">로그아웃</a>
-            {{/userName}}
-            {{^userName}}
+            {{/user}}
+            {{^user}}
                 <a href="/oauth2/authorization/google" class="btn btn-success active"
                    role="button">Google Login</a>
                 <a href="/oauth2/authorization/naver" class="btn btn-secondary active"
                    role="button">Naver Login</a>
                 <a href="/auth/login" role="button" class="btn btn-outline-dark bi bi-lock-fill">회원 로그인</a>
                 <a href="/auth/join" role="button" class="btn btn-outline-dark bi bi-person-circle">회원가입</a>
-            {{/userName}}
+            {{/user}}
     </div>
     <br>
 </head>

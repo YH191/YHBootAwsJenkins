@@ -1,6 +1,7 @@
 {{>layout/header}}
 <div id="posts_list">
     <table id="table" class="table table-horizontal">
+        <h6>게시글 검색 결과</h6>
         <thead id="thead">
         <tr>
             <th>번호</th>
@@ -15,7 +16,7 @@
             <tr>
                 <td>{{id}}</td>
                 <td><a href="/posts/read/{{id}}">{{title}}</a></td>
-                <td>{{author}}</td>
+                <td>{{writer}}</td>
                 <td>{{modifiedDate}}</td>
                 <td>{{view}}</td>
             </tr>

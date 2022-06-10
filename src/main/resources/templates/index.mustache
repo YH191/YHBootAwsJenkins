@@ -1,5 +1,5 @@
 {{>layout/header}}
-<div class="col-md-12">
+<div id="posts_list">
     <!-- 목록 출력 영역 -->
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
@@ -16,7 +16,7 @@
             <tr>
                 <td><a href="/posts/read/{{id}}">{{id}}</a></td>
                 <td><a href="/posts/read/{{id}}">{{title}}</a></td>
-                <td>{{author}}</td>
+                <td>{{writer}}</td>
                 <td>{{modifiedDate}}</td>
                 <td>{{view}}</td>
             </tr>
@@ -39,9 +39,15 @@
             <a href="?page={{next}}" role="button" class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
         {{/hasNext}}
     </div>
-
+    {{#user}}
     <div style="text-align:right">
         <a href="/posts/write" role="button" class="btn btn-primary">글 등록</a>
     </div>
+    {{/user}}
+    {{^user}}
+        <div style="text-align:right">
+            <a role="button" class="btn btn-primary">비회원은 글을 작성할 수 없습니다.</a>
+        </div>
+    {{/user}}
 </div>
 {{>layout/footer}}
