@@ -1,8 +1,8 @@
 {{>layout/header}}
 <div id="posts_list">
     <!-- 목록 출력 영역 -->
-    <table class="table table-horizontal table-bordered">
-        <thead class="thead-strong">
+    <table id="table" class="table table-horizontal table-bordered">
+        <thead id="thead" class="thead-strong">
         <tr>
             <th>게시글번호</th>
             <th>제목</th>
@@ -41,7 +41,7 @@
     </div>
     {{#user}}
     <div style="text-align:right">
-        <a href="/posts/write" role="button" class="btn btn-primary">글 등록</a>
+        <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
     </div>
     {{/user}}
     {{^user}}
