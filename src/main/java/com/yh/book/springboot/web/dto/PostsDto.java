@@ -4,6 +4,9 @@ import com.yh.book.springboot.domain.posts.Posts;
 import com.yh.book.springboot.domain.user.User;
 import lombok.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * request, response DTO 클래스를 하나로 묶어 InnerStaticClass로 한 번에 관리
  */
@@ -52,7 +55,8 @@ public class PostsDto {
         private String createdDate, modifiedDate;
         private int view;
         private Long userId;
-        //private List<CommentDto.Response> comments;
+        private List<CommentDto.Response> comments;
+
 
         /* Entity -> Dto*/
         public Response(Posts posts) {
@@ -64,7 +68,7 @@ public class PostsDto {
             this.modifiedDate = posts.getModifiedDate();
             this.view = posts.getView();
             this.userId = posts.getUser().getId();
-        //   this.comments = posts.getComments().stream().map(CommentDto.Response::new).collect(Collectors.toList());
+            this.comments = posts.getComments().stream().map(CommentDto.Response::new).collect(Collectors.toList());
         }
     }
 }
