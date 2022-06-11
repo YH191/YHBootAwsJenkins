@@ -23,9 +23,16 @@
         {{/searchList}}
         </tbody>
     </table>
-    <div class="text-right">
-        <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
-    </div>
+    {{#user}}
+        <div style="text-align:right">
+            <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
+        </div>
+    {{/user}}
+    {{^user}}
+        <div style="text-align:right">
+            <a role="button" class="btn btn-primary">비회원은 글을 작성할 수 없습니다</a>
+        </div>
+    {{/user}}
 
     {{! Search Paging }}
     <div class="pagination justify-content-center">
