@@ -19,6 +19,7 @@
     <div style="text-align:right">
             {{#user}}
                 <span id="user">{{username}}님 로그인 상태   </span>
+                <a href="/modify" role="button" class="btn btn-outline-dark bi-lock-fill">회원정보 수정</a>
                 <a href="/logout" class="btn btn-info active" role="button">로그아웃</a>
             {{/user}}
             {{^user}}
