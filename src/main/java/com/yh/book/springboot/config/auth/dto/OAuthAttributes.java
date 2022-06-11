@@ -42,7 +42,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .username((String) attributes.get("email"))
                 .email((String) attributes.get("email"))
-                .nickname((String) attributes.get("name"))
+                .nickname((String) attributes.get("email"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -57,7 +57,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .username((String) response.get("email"))
                 .email((String) response.get("email"))
-                .nickname((String) response.get("id"))
+                .nickname((String) response.get("email"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
