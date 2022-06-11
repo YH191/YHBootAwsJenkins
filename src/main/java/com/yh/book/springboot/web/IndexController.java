@@ -89,6 +89,8 @@ public class IndexController {
                 boolean isWriter = comments.get(i).getUserId().equals(user.getId());
                 model.addAttribute("isWriter",isWriter);
             }*/
+        } else{
+            model.addAttribute("uidc", "not1writer");
         }
 
         postsService.updateView(id); // views ++
