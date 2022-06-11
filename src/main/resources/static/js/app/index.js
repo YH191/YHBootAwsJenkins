@@ -1,16 +1,15 @@
-var main = {
-    init : function () {
+const main = {
+    init : function() {
         const _this = this;
+
         // 게시글 저장
         $('#btn-save').on('click', function () {
             _this.save();
         });
-
         // 게시글 수정
         $('#btn-update').on('click', function () {
             _this.update();
         });
-
         // 게시글 삭제
         $('#btn-delete').on('click', function () {
             _this.delete();
@@ -60,6 +59,7 @@ var main = {
             });
         }
     },
+
     /** 글 수정 */
     update : function () {
         const data = {
@@ -89,6 +89,7 @@ var main = {
             }
         }
     },
+
     /** 글 삭제 */
     delete : function () {
         const id = $('#id').val();

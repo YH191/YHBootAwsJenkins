@@ -1,6 +1,6 @@
 package com.yh.book.springboot.config.auth;
 
-import com.yh.book.springboot.config.auth.dto.UserSessionDto;
+import com.yh.book.springboot.config.auth.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -14,18 +14,23 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Component
 public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {
-    private final HttpSession httpSession;
+    private final HttpSession session;
 
+    /* @LoginUser 어노테이션이 붙어 있고, 파라미터 클래스 타입이 UserDto.Response인가 판단 후 true반환 */
     @Override
-    public boolean supportsParameter(MethodParameter parameter){
+    public boolean supportsParameter(MethodParameter parameter) {
         boolean isLoginUserAnnotation = parameter.getParameterAnnotation(LoginUser.class) != null;
-        boolean isUserClass = UserSessionDto.class.equals(parameter.getParameterType());
+
+        boolean isUserClass = UserDto.Response.class.equals(parameter.getParameterType());
+
         return isLoginUserAnnotation && isUserClass;
     }
 
+    /* 파라미터에 전달할 객체 생성 */
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception{
-        return httpSession.getAttribute("user");
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+
+        return session.getAttribute("user");
     }
 }

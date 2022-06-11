@@ -3,8 +3,6 @@ package com.yh.book.springboot.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yh.book.springboot.domain.posts.Posts;
 import com.yh.book.springboot.domain.posts.PostsRepository;
-import com.yh.book.springboot.web.dto.PostsSaveRequestDto;
-import com.yh.book.springboot.web.dto.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

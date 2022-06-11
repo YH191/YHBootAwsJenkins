@@ -1,11 +1,12 @@
 package com.yh.book.springboot.web;
 
 import com.yh.book.springboot.config.auth.LoginUser;
-import com.yh.book.springboot.config.auth.dto.UserSessionDto;
+import com.yh.book.springboot.config.auth.dto.UserDto;
 import com.yh.book.springboot.domain.posts.Posts;
 import com.yh.book.springboot.service.posts.PostsService;
-import com.yh.book.springboot.web.dto.PostsResponseDto;
+import com.yh.book.springboot.web.dto.PostsDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,6 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/**
+ * 화면 연결 Controller
+ */
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
@@ -23,11 +28,11 @@ public class IndexController {
 
     @GetMapping("/")                 /* default page = 0, size = 10  */
     public String index(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable, @LoginUser UserSessionDto user) {
+            Pageable pageable, @LoginUser UserDto.Response user) {
         Page<Posts> list = postsService.pageList(pageable);
 
         if (user != null) {
-            model.addAttribute("user", user.getNickname());
+            model.addAttribute("user", user);
         }
 
         model.addAttribute("posts", list);
@@ -38,43 +43,40 @@ public class IndexController {
 
         return "index";
     }
-
     /* 글 작성 */
     @GetMapping("/posts/write")
-    public String postsWrite(Model model, @LoginUser UserSessionDto user){
+    public String write(@LoginUser UserDto.Response user, Model model) {
         if (user != null) {
-            model.addAttribute("user", user.getNickname());
-            model.addAttribute("user.nickname", user.getNickname());
+            model.addAttribute("user", user);
         }
-
         return "posts/posts-write";
     }
 
     /* 글 상세보기 */
     @GetMapping("/posts/read/{id}")
-    public String read(@PathVariable Long id, Model model, @LoginUser UserSessionDto user) {
-        PostsResponseDto dto = postsService.findById(id);
-//        List<CommentDto.Response> comments = dto.getComments();
+    public String read(@PathVariable Long id, @LoginUser UserDto.Response user, Model model) {
+        PostsDto.Response dto = postsService.findById(id);
+        //List<CommentDto.Response> comments = dto.getComments();
 
 
-//        /* 댓글 관련 */
-//        if (comments != null && !comments.isEmpty()) {
-//            model.addAttribute("comments", comments);
-//        }
+        /* 댓글 관련
+        if (comments != null && !comments.isEmpty()) {
+            model.addAttribute("comments", comments);
+        }*/
 
-        /* 사용자 관련 */
+        //사용자 관련
         if (user != null) {
-            model.addAttribute("user", user.getNickname());
+            model.addAttribute("user", user);
 
             /* 게시글 작성자 본인인지 확인 */
-            if (dto.getWriter().equals(user.getNickname())) {
+            if (dto.getUserId().equals(user.getId())) {
                 model.addAttribute("writer", true);
             }
 
-//            /* 댓글 작성자 본인인지 확인 */
-//            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
-//                model.addAttribute("isWriter", true);
-//            }
+            /* 댓글 작성자 본인인지 확인
+            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
+                model.addAttribute("isWriter", true);
+            }*/
 /*            for (int i = 0; i < comments.size(); i++) {
                 boolean isWriter = comments.get(i).getUserId().equals(user.getId());
                 model.addAttribute("isWriter",isWriter);
@@ -86,26 +88,24 @@ public class IndexController {
         return "posts/posts-read";
     }
 
-    /* 글 수정 */
     @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser UserSessionDto user){
-        PostsResponseDto dto = postsService.findById(id);
+    public String update(@PathVariable Long id, @LoginUser UserDto.Response user, Model model) {
+        PostsDto.Response dto = postsService.findById(id);
         if (user != null) {
-            model.addAttribute("user", user.getNickname());
+            model.addAttribute("user", user);
         }
         model.addAttribute("posts", dto);
 
         return "posts/posts-update";
     }
 
-    /* 글 검색 */
     @GetMapping("/posts/search")
-    public String search(String keyword, Model model, @LoginUser UserSessionDto user,
-                         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String search(String keyword, Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable, @LoginUser UserDto.Response user) {
         Page<Posts> searchList = postsService.search(keyword, pageable);
 
         if (user != null) {
-            model.addAttribute("user", user.getNickname());
+            model.addAttribute("user", user);
         }
         model.addAttribute("searchList", searchList);
         model.addAttribute("keyword", keyword);
@@ -116,5 +116,5 @@ public class IndexController {
 
         return "posts/posts-search";
     }
-
 }
+

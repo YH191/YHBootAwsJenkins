@@ -1,36 +1,46 @@
 package com.yh.book.springboot.web;
 
+import com.yh.book.springboot.config.auth.LoginUser;
+import com.yh.book.springboot.config.auth.dto.UserDto;
 import com.yh.book.springboot.service.posts.PostsService;
-import com.yh.book.springboot.web.dto.PostsResponseDto;
-import com.yh.book.springboot.web.dto.PostsSaveRequestDto;
-import com.yh.book.springboot.web.dto.PostsUpdateRequestDto;
+import com.yh.book.springboot.web.dto.PostsDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST API Controller
+ */
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
 public class PostsApiController {
+
     private final PostsService postsService;
 
-    @PostMapping("/api/posts")
-    public Long save(@RequestBody PostsSaveRequestDto requestDto){
-        return  postsService.save(requestDto);
+    /* CREATE */
+    @PostMapping("/posts")
+    public ResponseEntity save(@RequestBody PostsDto.Request dto, @LoginUser UserDto.Response user) {
+        return ResponseEntity.ok(postsService.save(dto, user.getNickname()));
     }
 
-    @GetMapping("/api/posts/{id}")
-    public PostsResponseDto findById(@PathVariable Long id) {
-        return postsService.findById(id);
+    /* READ */
+    @GetMapping("/posts/{id}")
+    public ResponseEntity read(@PathVariable Long id) {
+        return ResponseEntity.ok(postsService.findById(id));
     }
 
-    @PutMapping("/api/posts/{id}")
-    public Long update(@PathVariable Long id,
-                       @RequestBody PostsUpdateRequestDto requestDto){
-        return postsService.update(id, requestDto);
+    /* UPDATE */
+    @PutMapping("/posts/{id}")
+    public ResponseEntity update(@PathVariable Long id, @RequestBody PostsDto.Request dto) {
+        postsService.update(id, dto);
+        return ResponseEntity.ok(id);
     }
 
-    @DeleteMapping("/api/posts/{id}")
-    public Long delete(@PathVariable Long id){
+    /* DELETE */
+    @DeleteMapping("/posts/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
         postsService.delete(id);
-        return id;
+        return ResponseEntity.ok(id);
     }
 }
