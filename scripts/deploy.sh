@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY=/home/ec2-user/app/step3
+REPOSITORY=/home/ec2-user/app/step2
 PROJECT_NAME=yh-springboot2-webservice
 
 echo "> Build 파일 복사"
