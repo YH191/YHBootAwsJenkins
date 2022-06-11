@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * request, response DTO 클래스를 하나로 묶어 InnerStaticClass로 한 번에 관리
+ * request, response DTO 클래스를 하나로 묶어 InnerStaticClass로 한 번에 관리함
  */
 public class PostsDto {
 
