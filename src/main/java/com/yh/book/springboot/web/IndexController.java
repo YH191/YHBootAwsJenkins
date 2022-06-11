@@ -33,6 +33,7 @@ public class IndexController {
 
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("nickname", user.getNickname());
         }
 
         model.addAttribute("posts", list);
