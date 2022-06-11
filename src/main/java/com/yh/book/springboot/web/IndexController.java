@@ -33,6 +33,7 @@ public class IndexController {
 
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
         }
 
         model.addAttribute("posts", list);
@@ -48,6 +49,7 @@ public class IndexController {
     public String write(@LoginUser UserDto.Response user, Model model) {
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("nickname", user.getUsername());
         }
         return "posts/posts-write";
     }
