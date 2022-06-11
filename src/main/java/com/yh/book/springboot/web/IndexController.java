@@ -80,6 +80,10 @@ public class IndexController {
             /* 댓글 작성자 본인인지 확인 */
             if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
                 model.addAttribute("isWriter", true);
+                model.addAttribute("uidc", user.getId());
+            }
+            else{
+                model.addAttribute("uidc", "not1writer");
             }
 /*            for (int i = 0; i < comments.size(); i++) {
                 boolean isWriter = comments.get(i).getUserId().equals(user.getId());
