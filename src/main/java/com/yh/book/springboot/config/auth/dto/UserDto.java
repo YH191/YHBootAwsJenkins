@@ -73,11 +73,20 @@ public class UserDto {
         /* Entity -> dto */
         public Response(User user) {
             this.id = user.getId();
-            this.username = user.getUsername();
+            this.username = getUsernameWithoutDomain(user.getUsername());
             this.nickname = user.getNickname();
             this.email = user.getEmail();
             this.role = user.getRole();
             this.modifiedDate = user.getModifiedDate();
+        }
+
+        private String getUsernameWithoutDomain(String email) {
+            int atIndex = email.indexOf("@");
+            if (atIndex == -1) { // @이 없는 경우
+                return email;
+            } else {
+                return email.substring(0, atIndex);
+            }
         }
     }
 }

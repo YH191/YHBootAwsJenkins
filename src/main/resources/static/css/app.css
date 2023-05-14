@@ -1,70 +1,69 @@
+/*html, body 영역*/
 html, body {
     height: 100%;
     padding: 0;
     margin: 0;
 }
 
-input:invalid {
-    border-color: red;
-}
+/*헤더 영역*/
 #header {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
-  background: #ffffff;
-  padding: 7px;
-  font-size: 1em;
+  align-items: center;
+  margin: 7px;
+}
+#header a:link,
+#header a:visited,
+#header a:hover,
+#header a:active {
+    color:#6c757d; text-decoration: none;
+}
 
-  /*버튼 영역*/
+/*버튼 영역*/
+.btn-group-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.btn-group-secondary > a.btn {
+  margin-right: 4px;
+}
+
+.btn-group-secondary > form {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 380px) {
+  #header {
+    flex-direction: column;
+  }
   .btn-group-main {
     margin-right: auto;
   }
-
   .btn-group-secondary {
-    margin-right: 0;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    margin-top: 6px;
+    align-items: flex-start;
   }
-
-  .btn-header {
-    border: 1px solid #ced4da;
-    color: #6c757d;
-  }
-
-  /*폼 영역*/
-  .form-inline {
-    width: 250px;
-  }
-
-  .form-inline .form-control {
-    width: calc(100% - 38px - 1rem);
-  }
-
-  .form-inline .btn-success {
-    width: 44px;
-  }
-
-  .form-inline .form-control,
-  .form-inline .btn-success {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  /*인풋 그룹 영역*/
-  .input-group {
-    margin-right: 1rem;
+  .btn-group-secondary > form {
+    margin-top: 6px;
+    margin-left: 0;
   }
 }
-#header a:link { color:#6c757d; text-decoration: none;}
+/*컨트롤 영역*/
+.form-control.searchArea {
+  max-width: 150px;
+}
 
-#header a:visited { color:#6c757d; text-decoration: none;}
-
-#header a:hover { color:#6c757d; text-decoration: none;}
-
-#header a:active { color:#6c757d; text-decoration: none;}
-
+input:invalid {
+    border-color: red;
+}
+/*유저 로그인 표시 영역*/
+.user-info {
+  align-items: center;
+  margin-right: 4px;
+}
 
 #footer {
     position: fixed;
@@ -90,8 +89,8 @@ input:invalid {
 #nav {
     background: #f5f5f5;
     padding: 12px;
-    border-top: 2px solid gainsboro;
-    border-bottom: 2px;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
 }
 
 #posts_list {
@@ -103,8 +102,9 @@ input:invalid {
 }
 
 #table {
-    border-bottom: 2px solid gainsboro;
+    border-bottom: 2px solid;
 }
+
 #thead {
     background: #434343;
     color: #000000;
