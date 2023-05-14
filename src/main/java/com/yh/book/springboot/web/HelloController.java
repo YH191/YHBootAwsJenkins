@@ -14,6 +14,12 @@ public class HelloController {
         return "hello";
     }
 
+//    @GetMapping("/hello")
+//    public String hello(Model model) {
+//        model.addAttribute("name", "World");
+//        return "hello";
+//    }
+
     @GetMapping("/hello/dto")
     public HelloResponseDto helloDto(@RequestParam("name") String name,
                                      @RequestParam("amount") int amount){

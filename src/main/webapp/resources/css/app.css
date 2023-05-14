@@ -20,37 +20,6 @@ html, body {
     color:#6c757d; text-decoration: none;
 }
 
-/*버튼 영역*/
-.btn-group-secondary {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.btn-group-secondary > a.btn {
-  margin-right: 4px;
-}
-
-.btn-group-secondary > form {
-  margin-left: 10px;
-}
-
-@media screen and (max-width: 380px) {
-  #header {
-    flex-direction: column;
-  }
-  .btn-group-main {
-    margin-right: auto;
-  }
-  .btn-group-secondary {
-    margin-top: 6px;
-    align-items: flex-start;
-  }
-  .btn-group-secondary > form {
-    margin-top: 6px;
-    margin-left: 0;
-  }
-}
 /*컨트롤 영역*/
 .form-control.searchArea {
   max-width: 150px;

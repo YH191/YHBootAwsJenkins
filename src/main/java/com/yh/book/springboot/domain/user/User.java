@@ -32,6 +32,9 @@ public class User extends BaseTimeEntity implements Serializable {
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
+    @Column(nullable = false, length = 30, unique = true)
+    private String loginInfo;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;

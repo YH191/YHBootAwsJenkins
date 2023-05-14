@@ -37,6 +37,7 @@ public class UserDto {
         @NotBlank(message = "이메일은 필수 입력 값입니다.")
         private String email;
 
+
         private Role role;
 
         /* DTO -> Entity */
@@ -67,6 +68,7 @@ public class UserDto {
         private final String username;
         private final String nickname;
         private final String email;
+        private final String loginInfo;
         private final Role role;
         private final String modifiedDate;
 
@@ -75,6 +77,7 @@ public class UserDto {
             this.id = user.getId();
             this.username = getUsernameWithoutDomain(user.getUsername());
             this.nickname = user.getNickname();
+            this.loginInfo = user.getLoginInfo();
             this.email = user.getEmail();
             this.role = user.getRole();
             this.modifiedDate = user.getModifiedDate();

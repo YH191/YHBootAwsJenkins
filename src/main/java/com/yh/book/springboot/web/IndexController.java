@@ -32,18 +32,18 @@ public class IndexController {
     @GetMapping("/")                 /* default page = 0, size = 10  */
     public String index(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable, @LoginUser UserDto.Response user) {
-        Page<Posts> list = postsService.pageList(pageable);
+//        Page<Posts> list = postsService.pageList(pageable);
 
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
         }
-
-        model.addAttribute("posts", list);
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-        model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("hasNext", list.hasNext());
-        model.addAttribute("hasPrev", list.hasPrevious());
+//
+//        model.addAttribute("posts", list);
+//        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+//        model.addAttribute("next", pageable.next().getPageNumber());
+//        model.addAttribute("hasNext", list.hasNext());
+//        model.addAttribute("hasPrev", list.hasPrevious());
 
         return "index";
     }

@@ -1,0 +1,42 @@
+/*버튼 영역*/
+.btn-group-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.btn-group-secondary > a.btn {
+  margin-right: 4px;
+}
+
+.btn-group-secondary > form {
+  margin-left: 10px;
+}
+
+.btn-primary {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.btn-primary svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media screen and (max-width: 380px) {
+  #header {
+    flex-direction: column;
+  }
+  .btn-group-main {
+    margin-right: auto;
+  }
+  .btn-group-secondary {
+    margin-top: 6px;
+    align-items: flex-start;
+  }
+  .btn-group-secondary > form {
+    margin-top: 6px;
+    margin-left: 0;
+  }
+}

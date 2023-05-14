@@ -23,6 +23,7 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String username;
     private String nickname;
+    private String loginInfo;
     private String email;
     private Role role;
 
@@ -43,6 +44,7 @@ public class OAuthAttributes {
                 .username((String) attributes.get("email"))
                 .email((String) attributes.get("email"))
                 .nickname((String) attributes.get("name"))
+                .loginInfo((String) "google")
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -58,6 +60,7 @@ public class OAuthAttributes {
                 .username((String) response.get("email"))
                 .email((String) response.get("email"))
                 .nickname((String) response.get("id"))
+                .loginInfo((String) "naver")
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -67,6 +70,7 @@ public class OAuthAttributes {
                 .username(email)
                 .email(email)
                 .nickname(nickname)
+                .loginInfo(loginInfo)
                 .role(Role.SOCIAL)
                 .build();
     }
