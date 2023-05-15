@@ -20,16 +20,6 @@ html, body {
     color:#6c757d; text-decoration: none;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-}
-.user-info .btn {
-  margin-right: 4px;
-}
-.user-info .username {
-  margin-right: 4px;
-}
 /*컨트롤 영역*/
 .form-control.searchArea {
   max-width: 150px;
@@ -40,7 +30,14 @@ input:invalid {
 }
 /*유저 로그인 표시 영역*/
 .user-info {
+  display: flex;
   align-items: center;
+  margin-right: 4px;
+}
+.user-info .btn {
+  margin-right: 4px;
+}
+.user-info .username {
   margin-right: 4px;
 }
 
