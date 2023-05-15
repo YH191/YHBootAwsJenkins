@@ -1,3 +1,0 @@
-# YHBootAwsJenkins
-YHBootAwsJenkins
-
