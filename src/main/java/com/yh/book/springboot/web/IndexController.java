@@ -29,24 +29,25 @@ public class IndexController {
 
     private final PostsService postsService;
 
-    @GetMapping("/")                 /* default page = 0, size = 10  */
+    @GetMapping("/") /* default page = 0, size = 10 */
     public String index(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable, @LoginUser UserDto.Response user) {
-//        Page<Posts> list = postsService.pageList(pageable);
+    Pageable pageable, @LoginUser UserDto.Response user) {
+        Page<Posts> list = postsService.pageList(pageable);
 
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
         }
-//
-//        model.addAttribute("posts", list);
-//        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-//        model.addAttribute("next", pageable.next().getPageNumber());
-//        model.addAttribute("hasNext", list.hasNext());
-//        model.addAttribute("hasPrev", list.hasPrevious());
+
+        model.addAttribute("list", list);
 
         return "index";
     }
+    //  model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+    //  model.addAttribute("next", pageable.next().getPageNumber());
+    //  model.addAttribute("hasNext", list.hasNext());
+    //  model.addAttribute("hasPrev", list.hasPrevious());
+
     /* 글 작성 */
     @GetMapping("/posts/write")
     public String write(@LoginUser UserDto.Response user, Model model) {
@@ -68,7 +69,7 @@ public class IndexController {
             model.addAttribute("comments", comments);
         }
 
-        //사용자 관련
+        // 사용자 관련
         if (user != null) {
             model.addAttribute("user", user);
 
@@ -81,15 +82,10 @@ public class IndexController {
             if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
                 model.addAttribute("isWriter", true);
                 model.addAttribute("uidc", user.getId());
-            }
-            else{
+            } else {
                 model.addAttribute("uidc", "not1writer");
             }
-/*            for (int i = 0; i < comments.size(); i++) {
-                boolean isWriter = comments.get(i).getUserId().equals(user.getId());
-                model.addAttribute("isWriter",isWriter);
-            }*/
-        } else{
+        } else {
             model.addAttribute("uidc", "not1writer");
         }
 
