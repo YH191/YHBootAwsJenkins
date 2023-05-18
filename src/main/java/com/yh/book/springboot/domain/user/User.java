@@ -32,12 +32,12 @@ public class User extends BaseTimeEntity implements Serializable {
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 30, unique = true)
-    private String loginInfo;
+    @Column(nullable = true, length = 30, unique = false)
+    private String loginInfo = "local";
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private Role role = Role.USER;
 
     /* 회원정보 수정 */
     public void modify(String nickname, String password) {
