@@ -27,7 +27,27 @@
             </tr>
           </c:forEach>
         </tbody>
+        <%-- Page --%>
       </table>
+      <div class="pagination justify-content-center">
+              <c:choose>
+                <c:when test="${pageable.hasPrevious()}">
+                  <a href="/posts/search?keyword=${keyword}&page=${previous}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>
+                </c:when>
+                <c:otherwise>
+                  <a href="/posts/search?keyword=${keyword}&page=${previous}" role="button" class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
+                </c:otherwise>
+              </c:choose>
+
+              <c:choose>
+                <c:when test="${pageable.hasNext()}">
+                  <a href="/posts/search?keyword=${keyword}&page=${next}" role="button" class="btn btn-lg bi bi-caret-right-square-fill"></a>
+                </c:when>
+                <c:otherwise>
+                  <a href="/posts/search?keyword=${keyword}&page=${next}" role="button" class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
+                </c:otherwise>
+              </c:choose>
+            </div>
       <c:if test="${user != null}">
         <div style="text-align:right">
           <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>

@@ -72,6 +72,7 @@ public class IndexController {
         // 사용자 관련
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
 
             /* 게시글 작성자 본인인지 확인 */
             if (dto.getUserId().equals(user.getId())) {
@@ -99,6 +100,7 @@ public class IndexController {
         PostsDto.Response dto = postsService.findById(id);
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
         }
         model.addAttribute("posts", dto);
 
@@ -112,6 +114,7 @@ public class IndexController {
 
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
         }
         model.addAttribute("searchList", searchList);
         model.addAttribute("keyword", keyword);
