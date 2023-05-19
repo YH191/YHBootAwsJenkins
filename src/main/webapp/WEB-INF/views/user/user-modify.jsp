@@ -29,8 +29,8 @@
                 <input type="email" id="email" value="${user.email}" class="form-control" readonly/>
             </div>
         </form>
-        <button id="btn-user-modify" class="btn btn-primary bi bi-check-lg"> 완료</button>
-        <a href="/" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
+        <button id="btn-user-modify" class="btn btn-primary"> 완료</button>
+        <a href="/" role="button" class="btn btn-info"> 목록</a>
     </div>
 </div>
 <%@ include file="../layout/footer.jspf" %>

@@ -31,8 +31,8 @@
                 <c:if test="${not empty valid_email}"><span id="valid">${valid_email}</span></c:if>
             </div>
 
-            <button type="submit" class="btn btn-primary bi bi-person"> 가입</button>
-            <a href="/" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
+            <button type="submit" class="btn btn-primary"> 가입</button>
+            <a href="/" role="button" class="btn btn-info"> 목록</a>
         </form>
     </div>
 </div>
