@@ -48,6 +48,7 @@ public class UserDto {
                     .password(password)
                     .nickname(nickname)
                     .email(email)
+                    .loginInfo("local")
                     .role(role.USER)
                     .build();
             return user;

@@ -5,14 +5,14 @@
   <%@ include file="../layout/header.jspf" %>
   <body>
     <div id="posts_list">
-      <table id="table" class="table table-horizontal">
+      <table id="table" class="table table-horizontal table-bordered">
         <h6>게시글 검색 결과</h6>
-        <thead id="thead">
+        <thead id="thead" class="thead-strong">
           <tr>
-            <th>번호</th>
-            <th class="col-md-6 text-center">제목</th>
+            <th>게시글번호</th>
+            <th>제목</th>
             <th>작성자</th>
-            <th>작성일</th>
+            <th>최종수정일</th>
             <th>조회수</th>
           </tr>
         </thead>

@@ -78,13 +78,24 @@ input:invalid {
 }
 
 #table {
-    border-bottom: 2px solid;
+    border: 1px solid #000000;
 }
 
 #thead {
-    background: #434343;
+    background: #b3d9ff;
     color: #000000;
 }
+
+  #thead th {
+    width: auto; /* 각 컬럼이 표기될 영역을 동일하게 나누기 */
+    text-align: center; /* 가운데 정렬 */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 처리 */
+  }
+
+  #thead th:nth-child(2) {
+    width: calc(100% / 5 * 2); /* 제목 컬럼의 너비를 2배로 설정 */
+  }
 
 #valid {
     font-size: xx-small;
