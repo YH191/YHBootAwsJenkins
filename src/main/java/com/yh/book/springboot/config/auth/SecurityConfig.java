@@ -54,7 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/api/**", "/auth/**", "/user/**", "/modify") /* REST API 사용 예외처리 */
+                .headers().frameOptions().sameOrigin()
+                .and()
+                .csrf().ignoringAntMatchers("/api/**", "/auth/**", "/user/**", "/modify", "/h2-console/**") /* REST API 사용 예외처리 */
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/auth/**", "/posts/write/**",
