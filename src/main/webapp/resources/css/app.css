@@ -12,6 +12,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
   margin: 7px;
+  margin-bottom: 10px;
 }
 #header a:link,
 #header a:visited,

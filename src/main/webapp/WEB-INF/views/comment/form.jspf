@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="card">
-    <div class="card-header bi bi-chat-right-dots"> Write a Comment</div>
+    <div class="card-header"> 댓글 작성</div>
     <%-- 댓글작성 부분 --%>
     <form>
         <input type="hidden" id="postsId" value="${posts.id}">
         <%-- user가 있을 경우 --%>
         <c:if test="${not empty user}">
             <div class="card-body">
-                <textarea id="comment" class="form-control" rows="4" placeholder="댓글을 입력하세요"></textarea>
+                <textarea id="comment" class="form-control" rows="4" placeholder="댓글 작성"></textarea>
             </div>
             <div class="card-footer">
                 <button type="button" id="btn-comment-save" class="btn btn-outline-primary"> 등록</button>
