@@ -94,6 +94,8 @@ public class UserController {
     public String modify(@LoginUser UserDto.Response user, Model model) {
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
         }
         return "user/user-modify";
     }

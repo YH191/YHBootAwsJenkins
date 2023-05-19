@@ -10,7 +10,7 @@
                 <textarea id="comment" class="form-control" rows="4" placeholder="댓글을 입력하세요"></textarea>
             </div>
             <div class="card-footer">
-                <button type="button" id="btn-comment-save" class="btn btn-outline-primary bi bi-pencil-square"> 등록</button>
+                <button type="button" id="btn-comment-save" class="btn btn-outline-primary"> 등록</button>
             </div>
         </c:if>
         <%-- user가 없을 경우 --%>

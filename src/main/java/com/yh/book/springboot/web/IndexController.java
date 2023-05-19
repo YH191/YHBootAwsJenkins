@@ -37,6 +37,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
         }
 
         model.addAttribute("list", list);
@@ -54,6 +55,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
         }
         return "posts/posts-write";
     }
@@ -73,6 +75,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
 
             /* 게시글 작성자 본인인지 확인 */
             if (dto.getUserId().equals(user.getId())) {
@@ -101,6 +104,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
         }
         model.addAttribute("posts", dto);
 
@@ -115,6 +119,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
         }
         model.addAttribute("searchList", searchList);
         model.addAttribute("keyword", keyword);

@@ -1,9 +1,15 @@
 /*버튼 영역*/
+.btn {
+    width: auto;
+    height: auto;
+}
+
 .btn-group-secondary {
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
+
 
 .btn-group-secondary > a.btn {
   margin-right: 4px;
@@ -13,11 +19,6 @@
   margin-left: 10px;
 }
 
-.btn-primary {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-}
 
 .btn-primary svg {
   width: 18px;

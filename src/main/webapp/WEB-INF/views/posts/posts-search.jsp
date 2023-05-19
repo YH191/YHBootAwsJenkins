@@ -30,7 +30,7 @@
       </table>
       <c:if test="${user != null}">
         <div style="text-align:right">
-          <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
+          <a href="/posts/write" role="button" class="btn btn-primary"> 글쓰기</a>
         </div>
       </c:if>
       <c:if test="${user == null}">
