@@ -14,12 +14,6 @@ html, body {
   margin: 7px;
   margin-bottom: 10px;
 }
-#header a:link,
-#header a:visited,
-#header a:hover,
-#header a:active {
-    color:#6c757d; text-decoration: none;
-}
 
 /*컨트롤 영역*/
 .form-control.searchArea {

@@ -13,7 +13,7 @@
 
   <div id="header">
     <div class="btn-group-main">
-      <a href="/" role="button" class="btn btn-header active">메인</a>
+      <a href="/" role="button" class="btn btn-outline-secondary">메인</a>
     </div>
     <div class="btn-group-secondary">
         <% if (username != null) { %>
@@ -21,14 +21,14 @@
           <div class="user-info">
             <span class="username">${username}님 로그인</span>
             <% if (!"google".equals(loginInfo) && !"naver".equals(loginInfo)) { %>
-            <a href="/modify" role="button" class="btn active">회원정보 수정</a>
+            <a href="/modify" role="button" class="btn btn-outline-secondary">회원정보 수정</a>
             <% } %>
-            <a href="/logout" role="button" class="btn active">로그아웃</a>
+            <a href="/logout" role="button" class="btn btn-outline-secondary">로그아웃</a>
           </div>
         <% } else { %>
           <div class="user-info">
-              <a href="/auth/login" role="button" class="btn btn-header active">로그인</a>
-              <a href="/auth/join" role="button" class="btn btn-header active">회원가입</a>
+              <a href="/auth/login" role="button" class="btn btn-outline-secondary">로그인</a>
+              <a href="/auth/join" role="button" class="btn btn-outline-secondary">회원가입</a>
           </div>
         <% } %>
       <form action="/posts/search" method="GET" role="search" class="form-inline active">

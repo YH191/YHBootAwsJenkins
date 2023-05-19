@@ -27,8 +27,8 @@
         </form>
 
         <!-- 버튼 -->
-        <a href="/posts/read/${posts.id}" role="button" class="btn btn-info bi bi-arrow-return-left"> 취소</a>
-        <button type="button" id="btn-update" class="btn btn-primary bi bi-pencil-square"> 완료</button>
+        <a href="/posts/read/${posts.id}" role="button" class="btn btn-info"> 취소</a>
+        <button type="button" id="btn-update" class="btn btn-primary"> 완료</button>
     </div>
 </div>
 

@@ -21,9 +21,9 @@
                 <p id="error-msg" class="alert alert-danger">${param.exception}</p>
             </c:if>
 
-            <button type="submit" class="form-control btn btn-primary"> 로그인</button>
-            <a href="/oauth2/authorization/google" class="btn btn-header active mx-1" role="button">Google Login</a>
-            <a href="/oauth2/authorization/naver" class="btn btn-header active mx-1" role="button">Naver Login</a>
+            <button type="submit" class="form-control btn btn-outline-secondary"> 로그인</button>
+            <a href="/oauth2/authorization/google" class="btn btn btn-outline-secondary mx-1" role="button">Google Login</a>
+            <a href="/oauth2/authorization/naver" class="btn btn btn-outline-secondary mx-1" role="button">Naver Login</a>
         </form>
     </div>
 </div>
