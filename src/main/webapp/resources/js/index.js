@@ -15,6 +15,11 @@ const main = {
             _this.delete();
         });
 
+        // 회원 수정
+        $('#btn-user-modify').on('click', function () {
+            _this.userModify();
+        });
+
         // 댓글 저장
         $('#btn-comment-save').on('click', function () {
             _this.commentSave();
@@ -102,6 +107,49 @@ const main = {
                 window.location.href = '/';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
+            });
+        } else {
+            return false;
+        }
+    },
+
+    /** 회원 수정 */
+    userModify : function () {
+        const data = {
+            id: $('#id').val(),
+            modifiedDate: $('#modifiedDate').val(),
+            username: $('#username').val(),
+            nickname: $('#nickname').val(),
+            password: $('#password').val()
+        }
+        if(!data.nickname || data.nickname.trim() === "" || !data.password || data.password.trim() === "") {
+            return false;
+        } else if(!/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}/.test(data.password)) {
+            $('#password').focus();
+            return false;
+        } else if(!/^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$/.test(data.nickname)) {
+            $('#nickname').focus();
+            return false;
+        }
+        const con_check = confirm("수정하시겠습니까?");
+        if (con_check === true) {
+            $.ajax({
+                type: "PUT",
+                url: "/api/user",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+
+            }).done(function () {
+                alert("회원수정이 완료되었습니다.");
+                window.location.href = "/";
+
+            }).fail(function (error) {
+                if (error.status === 500) {
+                    alert("이미 사용중인 닉네임 입니다.");
+                    $('#nickname').focus();
+                } else {
+                    alert(JSON.stringify(error));
+                }
             });
         } else {
             return false;
