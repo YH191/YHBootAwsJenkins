@@ -1,0 +1,77 @@
+[
+  {
+    "title": "새해",
+    "start": "2023-01-01",
+    "color": "red"
+  },
+  {
+    "title": "설날",
+    "start": "2023-01-21",
+    "color": "red"
+  },
+  {
+    "title": "설날",
+    "start": "2023-01-23",
+    "color": "red"
+  },
+  {
+    "title": "설날",
+    "start": "2023-01-24",
+    "color": "red"
+  },
+  {
+    "title": "3·1절",
+    "start": "2023-03-01",
+    "color": "red"
+  },
+  {
+    "title": "어린이날",
+    "start": "2023-05-05",
+    "color": "red"
+  },
+  {
+    "title": "부처님 오신 날",
+    "start": "2023-05-27",
+    "color": "red"
+  },
+  {
+    "title": "현충일",
+    "start": "2023-06-06",
+    "color": "red"
+  },
+  {
+    "title": "광복절",
+    "start": "2023-08-15",
+    "color": "red"
+  },
+  {
+    "title": "추석",
+    "start": "2023-09-28",
+    "color": "red"
+  },
+  {
+    "title": "추석",
+    "start": "2023-09-29",
+    "color": "red"
+  },
+  {
+    "title": "추석",
+    "start": "2023-09-30",
+    "color": "red"
+  },
+  {
+    "title": "개천절",
+    "start": "2023-10-03",
+    "color": "red"
+  },
+  {
+    "title": "한글날",
+    "start": "2023-10-09",
+    "color": "red"
+  },
+  {
+    "title": "크리스마스",
+    "start": "2023-12-25",
+    "color": "red"
+  }
+]
