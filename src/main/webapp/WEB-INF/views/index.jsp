@@ -27,27 +27,55 @@
             </tr>
           </c:forEach>
         </tbody>
-        <%-- Page --%>
       </table>
-      <div class="pagination justify-content-center">
-              <c:choose>
-                <c:when test="${pageable.hasPrevious()}">
-                  <a href="/posts/search?keyword=${keyword}&page=${previous}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>
-                </c:when>
-                <c:otherwise>
-                  <a href="/posts/search?keyword=${keyword}&page=${previous}" role="button" class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
-                </c:otherwise>
-              </c:choose>
 
-              <c:choose>
-                <c:when test="${pageable.hasNext()}">
-                  <a href="/posts/search?keyword=${keyword}&page=${next}" role="button" class="btn btn-lg bi bi-caret-right-square-fill"></a>
-                </c:when>
-                <c:otherwise>
-                  <a href="/posts/search?keyword=${keyword}&page=${next}" role="button" class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
-                </c:otherwise>
-              </c:choose>
-            </div>
+      <%-- Page --%>
+      <div class="pagination justify-content-center">
+        <c:if test="${list.totalPages > 1}">
+          <ul class="pagination">
+            <c:choose>
+              <c:when test="${hasPrev}">
+                <li class="page-item">
+                  <a class="page-link" href="/?page=${previous}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              </c:when>
+              <c:otherwise>
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              </c:otherwise>
+            </c:choose>
+
+            <c:forEach begin="0" end="${list.totalPages - 1}" varStatus="status">
+              <li class="page-item ${status.index == list.number ? 'active' : ''}">
+                <a class="page-link" href="/?page=${status.index}">${status.index + 1}</a>
+              </li>
+            </c:forEach>
+
+            <c:choose>
+              <c:when test="${hasNext}">
+                <li class="page-item">
+                  <a class="page-link" href="/?page=${next}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </c:when>
+              <c:otherwise>
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </c:otherwise>
+            </c:choose>
+          </ul>
+        </c:if>
+      </div>
+
       <c:if test="${user != null}">
         <div style="text-align:right">
           <a href="/posts/write" role="button" class="btn btn-primary"> 글쓰기</a>
