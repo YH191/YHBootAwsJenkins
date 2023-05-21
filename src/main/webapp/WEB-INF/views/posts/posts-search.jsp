@@ -31,7 +31,7 @@
       </table>
       <c:if test="${user != null}">
         <div style="text-align:right">
-          <a href="/posts/write" role="button" class="btn btn-primary"> 글쓰기</a>
+          <a href="/posts/write" role="button" class="btn btn-primary">글쓰기</a>
         </div>
       </c:if>
       <c:if test="${user == null}">
@@ -39,52 +39,53 @@
           <a role="button" class="btn btn-primary">비회원은 글을 작성할 수 없습니다</a>
         </div>
       </c:if>
-<%-- Page --%>
-            <div class="pagination justify-content-center">
-              <c:if test="${searchList.totalPages > 1}">
-                <ul class="pagination">
-                  <c:choose>
-                    <c:when test="${hasPrev}">
-                      <li class="page-item">
-                        <a class="page-link" href="/?page=${previous}" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                    </c:when>
-                    <c:otherwise>
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                    </c:otherwise>
-                  </c:choose>
 
-                  <c:forEach begin="0" end="${searchList.totalPages - 1}" varStatus="status">
-                    <li class="page-item ${status.index == searchList.number ? 'active' : ''}">
-                      <a class="page-link" href="/?page=${status.index}">${status.index + 1}</a>
-                    </li>
-                  </c:forEach>
+      <%-- Pagination --%>
+      <div class="pagination justify-content-center">
+        <c:if test="${searchList.totalPages > 1}">
+          <ul class="pagination">
+            <c:choose>
+              <c:when test="${hasPrev}">
+                <li class="page-item">
+                  <a class="page-link" href="/posts/search?page=${previous}&amp;keyword=${fn:escapeXml(keyword)}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              </c:when>
+              <c:otherwise>
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              </c:otherwise>
+            </c:choose>
 
-                  <c:choose>
-                    <c:when test="${hasNext}">
-                      <li class="page-item">
-                        <a class="page-link" href="/?page=${next}" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </c:when>
-                    <c:otherwise>
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </c:otherwise>
-                  </c:choose>
-                </ul>
-              </c:if>
-            </div>
+            <c:forEach begin="0" end="${searchList.totalPages - 1}" varStatus="status">
+              <li class="page-item ${status.index == searchList.number ? 'active' : ''}">
+                <a class="page-link" href="/posts/search?page=${status.index}&amp;keyword=${fn:escapeXml(keyword)}">${status.index + 1}</a>
+              </li>
+            </c:forEach>
+
+            <c:choose>
+              <c:when test="${hasNext}">
+                <li class="page-item">
+                  <a class="page-link" href="/posts/search?page=${next}&amp;keyword=${fn:escapeXml(keyword)}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </c:when>
+              <c:otherwise>
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </c:otherwise>
+            </c:choose>
+          </ul>
+        </c:if>
+      </div>
     </div>
     <%@ include file="../layout/footer.jspf" %>
   </body>

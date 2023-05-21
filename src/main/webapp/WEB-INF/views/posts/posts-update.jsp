@@ -32,5 +32,42 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('#btn-update').click(function() {
+            update();
+        });
+    });
+
+    function update() {
+        const data = {
+            id: $('#id').val(),
+            title: $('#title').val(),
+            content: $('#content').val()
+        };
+
+        const con_check = confirm("수정하시겠습니까?");
+        if (con_check === true) {
+            if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
+                alert("입력하지 않은 부분이 있습니다.");
+                return false;
+            } else {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/posts/' + data.id,
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function () {
+                    alert("수정되었습니다.");
+                    window.location.href = '/posts/read/' + data.id;
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            }
+        }
+    }
+</script>
+
 <%@ include file="../layout/footer.jspf" %>
 </html>

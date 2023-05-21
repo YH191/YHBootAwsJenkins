@@ -44,7 +44,7 @@
             <c:choose>
               <c:when test="${hasPrev}">
                 <li class="page-item">
-                  <a class="page-link" href="/?page=${previous}" aria-label="Previous">
+                  <a class="page-link" href="/posts?page=${previous}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
@@ -60,14 +60,14 @@
 
             <c:forEach begin="0" end="${list.totalPages - 1}" varStatus="status">
               <li class="page-item ${status.index == list.number ? 'active' : ''}">
-                <a class="page-link" href="/?page=${status.index}">${status.index + 1}</a>
+                <a class="page-link" href="/posts?page=${status.index}">${status.index + 1}</a>
               </li>
             </c:forEach>
 
             <c:choose>
               <c:when test="${hasNext}">
                 <li class="page-item">
-                  <a class="page-link" href="/?page=${next}" aria-label="Next">
+                  <a class="page-link" href="/posts?page=${next}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>

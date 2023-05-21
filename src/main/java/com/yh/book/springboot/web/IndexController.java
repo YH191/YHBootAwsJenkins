@@ -40,6 +40,8 @@ public class IndexController {
             model.addAttribute("loginInfo", user.getLoginInfo());
         }
 
+        model.addAttribute("list", list);
+
         return "index";
     }
     @GetMapping("/posts") /* default page = 0, size = 10 */

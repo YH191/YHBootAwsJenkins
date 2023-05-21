@@ -20,6 +20,42 @@
         <button type="button" id="btn-save" class="btn btn-primary"> 작성</button>
       </div>
     </div>
+
+    <script>
+      $(document).ready(function() {
+        $('#btn-save').click(function() {
+          save();
+        });
+      });
+
+      function save() {
+        const data = {
+          title: $('#title').val(),
+          writer: $('#writer').val(),
+          content: $('#content').val()
+        };
+
+        // 공백 및 빈 문자열 체크
+        if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
+          alert("입력하지 않은 부분이 있습니다.");
+          return false;
+        } else {
+          $.ajax({
+            type: 'POST',
+            url: '/api/posts',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+          }).done(function () {
+            alert('등록되었습니다.');
+            window.location.href = '/posts';
+          }).fail(function (error) {
+            alert(JSON.stringify(error));
+          });
+        }
+      }
+    </script>
+
   <%@ include file="../layout/footer.jspf" %>
   </body>
 </html>
