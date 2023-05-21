@@ -15,11 +15,6 @@ const main = {
             _this.delete();
         });
 
-        // 회원 수정
-        $('#btn-user-modify').on('click', function () {
-            _this.userModify();
-        });
-
         // 댓글 저장
         $('#btn-comment-save').on('click', function () {
             _this.commentSave();

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
   <%@ include file="layout/header.jspf" %>
@@ -9,7 +11,7 @@
       <table id="table" class="table table-horizontal table-bordered">
         <thead id="thead" class="thead-strong">
           <tr>
-            <th>게시글번호</th>
+            <th>번호</th>
             <th>제목</th>
             <th>작성자</th>
             <th>최종수정일</th>
@@ -19,10 +21,10 @@
         <tbody id="tbody">
           <c:forEach items="${list.content}" var="post">
             <tr>
-              <td><a href="/posts/read/${post.id}">${post.id}</a></td>
+              <td>${post.id}</a></td>
               <td><a href="/posts/read/${post.id}">${post.title}</a></td>
               <td>${post.writer}</td>
-              <td>${post.modifiedDate}</td>
+              <td>${fn:substring(post.modifiedDate, 0, 10)}</td>
               <td>${post.view}</td>
             </tr>
           </c:forEach>

@@ -8,7 +8,7 @@
       <div class="col-md-12">
         <form class="card">
           <div class="card-header d-flex justify-content-between">
-            <label for="id">게시글 번호 : ${posts.id}</label>
+            <label for="id">번호 : ${posts.id}</label>
             <input type="hidden" id="id" value="${posts.id}"/> <!-- label 연결 -->
             <label for="createdDate">${posts.createdDate}</label>
           </div>
