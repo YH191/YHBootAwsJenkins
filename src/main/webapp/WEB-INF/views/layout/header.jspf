@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-icons.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/app.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/button.css" />
+  <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/index.js"></script>
 
   <div id="header">
     <div class="btn-group-main">

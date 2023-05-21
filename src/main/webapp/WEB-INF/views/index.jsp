@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
   <%@ include file="layout/header.jspf" %>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar.min.css" />
+  <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/fullcalendar.min.js">
   <body>
   </body>
     <%@ include file="layout/footer.jspf" %>
