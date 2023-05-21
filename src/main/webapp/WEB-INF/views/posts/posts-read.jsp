@@ -26,15 +26,12 @@
         </form>
 
         <%-- Buttons --%>
+          <a href="/posts" role="button" class="btn btn-info"> 목록</a>
         <c:if test="${user != null}">
-          <a href="/" role="button" class="btn btn-info"> 목록</a>
           <c:if test="${writer}">
             <a href="/posts/update/${posts.id}" role="button" class="btn btn-primary"> 수정</a>
             <button type="button" onclick="" id="btn-delete" class="btn btn-danger"> 삭제</button>
           </c:if>
-        </c:if>
-        <c:if test="${user == null}">
-          <a href="/" role="button" class="btn btn-info"> 목록</a>
         </c:if>
 
         <%-- Comments --%>

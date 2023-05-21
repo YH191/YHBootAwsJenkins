@@ -40,13 +40,26 @@ public class IndexController {
             model.addAttribute("loginInfo", user.getLoginInfo());
         }
 
+        return "index";
+    }
+    @GetMapping("/posts") /* default page = 0, size = 10 */
+    public String posts(Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
+    Pageable pageable, @LoginUser UserDto.Response user) {
+        Page<Posts> list = postsService.pageList(pageable);
+
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
+        }
+
         model.addAttribute("list", list);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
         model.addAttribute("hasNext", list.hasNext());
         model.addAttribute("hasPrev", list.hasPrevious());
 
-        return "index";
+        return "posts/posts";
     }
 
     /* 글 작성 */

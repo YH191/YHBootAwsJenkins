@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().ignoringAntMatchers("/api/**", "/auth/**", "/user/**", "/modify", "/h2-console/**") /* REST API 사용 예외처리 */
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/posts/write/**",
+                .antMatchers("/", "/auth/**", "/posts", "/posts/write/**",
                         "/posts/read/**", "/h2-console/**", "/user/**",
                         "/posts/search/**", "/profile").permitAll()
                 .anyRequest().authenticated()

@@ -48,7 +48,7 @@ const main = {
                 data: JSON.stringify(data)
             }).done(function () {
                 alert('등록되었습니다.');
-                window.location.href = '/';
+                window.location.href = '/posts';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
@@ -99,7 +99,7 @@ const main = {
 
             }).done(function () {
                 alert("삭제되었습니다.");
-                window.location.href = '/';
+                window.location.href = '/posts';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
