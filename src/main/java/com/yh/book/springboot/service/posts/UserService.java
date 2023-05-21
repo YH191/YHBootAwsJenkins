@@ -46,7 +46,7 @@ public class UserService {
     /* 회원수정 (dirty checking) */
     @Transactional
     public void modify(UserDto.Request dto) {
-        User user = userRepository.findById(dto.toEntity().getId()).orElseThrow(() ->
+        User user = userRepository.findById(dto.getId()).orElseThrow(() ->
                 new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
 
         String encPassword = encoder.encode(dto.getPassword());

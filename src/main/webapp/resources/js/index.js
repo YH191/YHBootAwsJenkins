@@ -115,41 +115,63 @@ const main = {
 
     /** 회원 수정 */
     userModify : function () {
-        const data = {
-            id: $('#id').val(),
-            modifiedDate: $('#modifiedDate').val(),
-            username: $('#username').val(),
-            nickname: $('#nickname').val(),
-            password: $('#password').val()
+        var password = document.getElementById('password').value;
+        var nickname = document.getElementById('nickname').value;
+
+        if (!/^(?=.*[0-9])(?=.*\W)(?=\S+$).{8,16}$/.test(password)) {
+            document.getElementById('valid_password').textContent = '8~16자, 숫자와 특수문자를 사용하세요.';
+            return false;
+        } else {
+            document.getElementById('valid_password').textContent = '';
         }
-        if(!data.nickname || data.nickname.trim() === "" || !data.password || data.password.trim() === "") {
+
+        if (!/^[\u3131-\uD79Da-zA-Z0-9-_]{2,10}$/.test(nickname)) {
+            document.getElementById('valid_nickname').textContent = '특수문자를 제외한 2~10자를 사용하세요.';
             return false;
-        } else if(!/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}/.test(data.password)) {
-            $('#password').focus();
-            return false;
-        } else if(!/^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$/.test(data.nickname)) {
-            $('#nickname').focus();
-            return false;
+        } else {
+            document.getElementById('valid_nickname').textContent = '';
         }
-        const con_check = confirm("수정하시겠습니까?");
+
+        var con_check = confirm("수정하시겠습니까?");
         if (con_check === true) {
-            $.ajax({
-                type: "PUT",
-                url: "/api/user",
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
+            document.getElementById('btn-user-modify').disabled = true;
+            document.getElementById('btn-user-modify').textContent = '수정 중...';
 
-            }).done(function () {
-                alert("회원수정이 완료되었습니다.");
-                window.location.href = "/";
+            var form = document.getElementById('user-modify-form');
+            var data = {
+                id: form.elements["id"].value,
+                modifiedDate: form.elements["modifiedDate"].value,
+                username: form.elements["username"].value,
+                password: form.elements["password"].value,
+                nickname: form.elements["nickname"].value
+            };
 
-            }).fail(function (error) {
-                if (error.status === 500) {
-                    alert("이미 사용중인 닉네임 입니다.");
-                    $('#nickname').focus();
+            fetch('/api/user', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    alert("회원 수정이 완료되었습니다.", "success");
+                    window.location.href = "/";
+                } else if (response.status === 500) {
+                    alert("이미 사용중인 닉네임 입니다.", "error");
+                    document.getElementById('nickname').focus();
+                    document.getElementById('btn-user-modify').disabled = false;
+                    document.getElementById('btn-user-modify').textContent = '완료';
                 } else {
-                    alert(JSON.stringify(error));
+                    alert("오류가 발생했습니다.", "error");
+                    document.getElementById('btn-user-modify').disabled = false;
+                    document.getElementById('btn-user-modify').textContent = '완료';
+                    console.log(response.statusText);
                 }
+            })
+            .catch(function(error) {
+                alert("오류가 발생했습니다.", "error");
+                console.log(error);
             });
         } else {
             return false;

@@ -7,6 +7,8 @@ import com.yh.book.springboot.config.auth.validator.CheckNicknameValidator;
 import com.yh.book.springboot.config.auth.validator.CheckUsernameValidator;
 import com.yh.book.springboot.service.posts.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -14,10 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -98,5 +97,15 @@ public class UserController {
             model.addAttribute("loginInfo", user.getLoginInfo());
         }
         return "user/user-modify";
+    }
+    /* 회원정보 수정 */
+    @PutMapping("/api/user")
+    public ResponseEntity<String> updateUser(@RequestBody UserDto.Request dto) {
+        try {
+            userService.modify(dto);
+            return ResponseEntity.ok("회원 수정이 완료되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류가 발생했습니다.");
+        }
     }
 }
