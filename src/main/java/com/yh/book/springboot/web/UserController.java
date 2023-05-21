@@ -9,6 +9,8 @@ import com.yh.book.springboot.service.posts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -35,6 +37,7 @@ public class UserController {
     private final CheckUsernameValidator checkUsernameValidator;
     private final CheckNicknameValidator checkNicknameValidator;
     private final CheckEmailValidator checkEmailValidator;
+    private final AuthenticationManager authenticationManager;
 
     /* 커스텀 유효성 검증을 위해 추가 */
     @InitBinder
@@ -103,6 +106,13 @@ public class UserController {
     public ResponseEntity<String> updateUser(@RequestBody UserDto.Request dto) {
         try {
             userService.modify(dto);
+
+            /* 변경된 세션 등록 */
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
             return ResponseEntity.ok("회원 수정이 완료되었습니다.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류가 발생했습니다.");

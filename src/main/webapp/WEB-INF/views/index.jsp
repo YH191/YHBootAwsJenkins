@@ -19,6 +19,12 @@
           </tr>
         </thead>
         <tbody id="tbody">
+        <c:if test="${empty list.content}">
+          <!-- 해당 내용이 실행될 경우 list 변수가 없는 경우임 -->
+          <tr>
+            <td colspan="5">게시글이 없습니다.</td>
+          </tr>
+        </c:if>
           <c:forEach items="${list.content}" var="post">
             <tr>
               <td>${post.id}</a></td>
