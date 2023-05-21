@@ -30,7 +30,7 @@ public class IndexController {
     private final PostsService postsService;
 
     @GetMapping("/") /* default page = 0, size = 10 */
-    public String index(Model model, @PageableDefault(page = 1, sort = "id", direction = Sort.Direction.ASC)
+    public String index(Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
     Pageable pageable, @LoginUser UserDto.Response user) {
         Page<Posts> list = postsService.pageList(pageable);
 
@@ -112,7 +112,7 @@ public class IndexController {
     }
 
     @GetMapping("/posts/search")
-    public String search(String keyword, Model model, @PageableDefault(page = 1, sort = "id", direction = Sort.Direction.ASC)
+    public String search(String keyword, Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable, @LoginUser UserDto.Response user) {
         Page<Posts> searchList = postsService.search(keyword, pageable);
 

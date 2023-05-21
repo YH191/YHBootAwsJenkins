@@ -54,7 +54,7 @@ public class OAuthAttributes {
         /* JSON형태이기 때문에 Map을 통해 데이터를 가져온다. */
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
-        log.info("naver response : " + response);
+//        log.info("naver response : " + response);
 
         return OAuthAttributes.builder()
                 .username((String) response.get("email"))
