@@ -38,6 +38,13 @@ dependencies {
     // JSTL 종속성 추가
     implementation 'javax.servlet:jstl:1.2'
     implementation 'javax.servlet.jsp:jsp-api:2.2'
+    // 서블릿 API
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.52'
+    //JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.json:json:20230227'
+
 
     //스프링부트
     implementation('org.springframework.boot:spring-boot-starter-web')
