@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 /*
@@ -45,10 +48,10 @@ public class WeatherApiController {
         String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"
                 + "?serviceKey=%2FMLDHFU3P5hUGUPGoUcc8BFqpgv4rf1dul8%2FTG3bs4sNFAnmpKVNkwSiiCdW%2FSNMSWI8WwESbtlz2L%2FoEwSXUA%3D%3D"
                 + "&dataType=JSON"            // JSON, XML
-                + "&numOfRows=10"             // 페이지 ROWS
+                + "&numOfRows=11"             // 페이지 ROWS
                 + "&pageNo=1"                 // 페이지 번호
-                + "&base_date=20230522"       // 발표일자
-                + "&base_time=2000"           // 발표시각
+                + "&base_date=" + getCurrentDate()    // 발표일자
+                + "&base_time=" + getCurrentTime()    // 발표시각
                 + "&nx=61"                    // 예보지점 X 좌표
                 + "&ny=125";                  // 예보지점 Y 좌표
 
@@ -61,6 +64,29 @@ public class WeatherApiController {
         jsonObj.put("result", resultMap);
 
         return jsonObj.toString();
+    }
+
+    public String getCurrentDate() {
+        Date currentDate = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        return dateFormat.format(currentDate);
+    }
+
+    public String getCurrentTime() {
+        Calendar calendar = Calendar.getInstance();
+        int minute = calendar.get(Calendar.MINUTE);
+
+        // 20분 이전에는 2시간 전 데이터를, 20분 이후에는 1시간 전 데이터를 받아오도록 처리
+        if (minute < 20) {
+            calendar.add(Calendar.HOUR_OF_DAY, -2); // Subtract 2 hours
+        } else {
+            calendar.add(Calendar.HOUR_OF_DAY, -1); // Subtract 1 hour
+        }
+
+        calendar.set(Calendar.MINUTE, 0); // Set minutes to 0
+        calendar.set(Calendar.SECOND, 0); // Reset seconds to 0
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH00");
+        return timeFormat.format(calendar.getTime());
     }
 
     public HashMap<String, Object> getDataFromJson(String url, String encoding, String type, String jsonStr) throws Exception {
