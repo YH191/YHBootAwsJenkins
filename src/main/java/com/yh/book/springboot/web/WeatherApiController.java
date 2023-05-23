@@ -76,13 +76,8 @@ public class WeatherApiController {
         Calendar calendar = Calendar.getInstance();
         int minute = calendar.get(Calendar.MINUTE);
 
-        // 20분 이전에는 2시간 전 데이터를, 20분 이후에는 1시간 전 데이터를 받아오도록 처리
-        if (minute < 20) {
-            calendar.add(Calendar.HOUR_OF_DAY, -2); // Subtract 2 hours
-        } else {
-            calendar.add(Calendar.HOUR_OF_DAY, -1); // Subtract 1 hour
-        }
 
+        calendar.add(Calendar.HOUR_OF_DAY, -2); // Subtract 2 hours
         calendar.set(Calendar.MINUTE, 0); // Set minutes to 0
         calendar.set(Calendar.SECOND, 0); // Reset seconds to 0
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH00");

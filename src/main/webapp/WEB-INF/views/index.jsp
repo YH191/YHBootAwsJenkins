@@ -10,6 +10,7 @@
 
 
 <body>
+<div id="main-content-wrapper">
   <div id="left-container">
     <div id="calendar"></div>
   </div>
@@ -17,6 +18,7 @@
     <div id="chart-container"></div>
     <div id="weather-info"></div>
   </div>
+<div>
 </body>
 
 <script>
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     events: '${pageContext.request.contextPath}/resources/data/events.json',
+    locale: 'ko', // 언어를 한글로 설정
   });
   calendar.render();
 
@@ -126,6 +129,33 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   weather();
+
+    // 차트 컨테이너 엘리먼트를 가져옵니다.
+    var chartContainer = document.getElementById('chart-container');
+
+    // 차트 높이를 동적으로 계산하여 설정하는 함수
+    function setChartHeight() {
+      // 현재 화면의 높이를 가져옵니다.
+      var screenHeight = window.innerHeight;
+
+      // 초기 크기로 설정할 높이를 지정합니다.
+      var initialHeight = 420;
+
+      // 차트 컨테이너의 높이를 계산합니다.
+      var chartHeight = Math.min(screenHeight - 20, initialHeight); // 필요한 여백을 고려하여 계산합니다.
+
+      // 차트 컨테이너의 높이를 설정합니다.
+      chartContainer.style.height = chartHeight + 'px';
+    }
+
+    // 초기 로드 시 차트 높이 설정
+    setChartHeight();
+
+    // 창 크기 변경 시 차트 높이 재조정
+    window.addEventListener('resize', function() {
+      setChartHeight();
+    });
+
 });
 </script>
 <%@ include file="layout/footer.jspf" %>

@@ -3,18 +3,29 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-}
-#left-container {
-  float: left;
-  width: 44%;
-  height: 400px;
-  margin-right: 10px; /* 오른쪽 간격 추가 */
-}
-#right-container {
-  float: left;
-  width: 54%;
-  height: 440px;
-}
+}/* 메인 컨텐트 래퍼 스타일 */
+ #main-content-wrapper {
+   margin: 20px;
+ }
+
+ /* 좌우 컨테이너 스타일 */
+ #left-container {
+   float: left;
+   width: calc(44% - 7px); /* 좌우 간격을 7px로 설정 */
+   height: 400px;
+   margin-right: 7px; /* 우측 여백을 7px로 설정 */
+ }
+
+ #right-container {
+   float: left;
+   width: calc(54% - 7px); /* 좌우 간격을 7px로 설정 */
+   height: 400px;
+ }
+
+ /* 상단 여백 설정 */
+ #main-content-wrapper {
+   margin-top: 60px;
+ }
 
 #calendar a {
   color: black;
