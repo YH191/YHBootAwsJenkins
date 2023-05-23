@@ -7,31 +7,7 @@
 <%@ include file="layout/header.jspf" %>
 <script src="${pageContext.request.contextPath}/resources/js/fullcalendar.global.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/echarts.min.js"></script>
-<style>
-#left-container {
-  float: left;
-  width: 44%;
-  height: 400px;
-}
-#right-container {
-  float: left;
-  width: 54%;
-  height: 400px;
-}
 
-#calendar a {
-  color: black;
-}
-
-#calendar .fc-day-sun a {
-  color: red;
-}
-
-#chart-container {
-  width: 100%;
-  height: 100%;
-}
-</style>
 
 <body>
   <div id="left-container">
@@ -65,8 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
               let dataHeader = data.result.response.header.resultCode;
 
               if (dataHeader == "00") {
+              <%--
                   console.log("success == >");
                   console.log(data);
+              --%>
 
                   // 차트 데이터 추출
                   var chartData = data.result.response.body.items.item;
@@ -98,37 +76,50 @@ document.addEventListener('DOMContentLoaded', function () {
                   var chart = echarts.init(chartContainer);
 
                   var options = {
-                      title: {
-                          text: '5월 23일',
+                    xAxis: {
+                      type: 'category',
+                      data: ['기온', '강수확률', '습도'],
+                    },
+                    yAxis: {
+                      type: 'value',
+                      axisLabel: {
+                        formatter: function (value, index) {
+                          if (index === 0) {
+                            return value + '℃';
+                          } else if (index === 1) {
+                            return value + '%';
+                          } else {
+                            return value;
+                          }
+                        },
                       },
-                      xAxis: {
-                          type: 'category',
-                          data: ['기온', '강수확률', '습도'],
-                      },
-                      yAxis: {
-                          type: 'value',
-                      },
-                      tooltip: {
-                          trigger: 'axis', // 툴팁을 축에 따라 표시
-                      },
-                      series: [
-                          {
-                              name: '데이터',
-                              data: [tmpData[0], popData[0], rehData[0]],
-                              type: 'bar',
-                              label: {
-                                  show: true, // 라벨 표시
-                                  position: 'top', // 라벨 위치: 막대 위쪽
-                                  formatter: '{c}', // 라벨 형식: 데이터 값만 표시
-                              },
+                    },
+                    series: [
+                      {
+                        name: '데이터',
+                        data: [
+                          { value: parseFloat(tmpData[0]), unit: '℃' },
+                          { value: parseFloat(popData[0]), unit: '%' },
+                          { value: parseFloat(rehData[0]), unit: '%' },
+                        ],
+                        type: 'bar',
+                        label: {
+                          show: true,
+                          position: 'top',
+                          formatter: function (params) {
+                            return params.value + params.data.unit;
                           },
-                      ],
+                        },
+                      },
+                    ],
                   };
 
                   chart.setOption(options);
               } else {
+              <%--
                   console.log("fail == >");
                   console.log(data);
+              --%>
               }
           },
       });
