@@ -51,16 +51,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
                   // 차트 데이터 추출
                   var chartData = data.result.response.body.items.item;
+                  console.log(chartData)
 
                   // 필요한 데이터 추출
                   var timeData = [];
                   var tmpData = [];
                   var popData = [];
                   var rehData = [];
+                  var currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, "");
 
                   for (var i = 0; i < chartData.length; i++) {
                       var item = chartData[i];
-                      if (item.fcstDate === "20230523") {
+                      if (item.fcstDate === currentDate) {
                           timeData.push(item.fcstTime);
                           if (item.category === "TMP") {
                               tmpData.push(item.fcstValue);
