@@ -34,6 +34,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* 날씨 */
   function weather() {
+      // 로딩 표시 추가
+      var chartContainer = document.getElementById('chart-container');
+      var loadingOption = {
+          text: '로딩 중...',  // 로딩 메시지
+          color: '#c23531',    // 로딩 표시의 색상
+          textColor: '#000',   // 로딩 표시의 텍스트 색상
+          maskColor: 'rgba(255, 255, 255, 0.8)',  // 로딩 표시의 배경색 및 투명도
+      };
+      var chart = echarts.init(chartContainer);
+      chart.showLoading(loadingOption);
+
       jQuery.ajax({
           url: "/api/weather",
           type: "get",
@@ -74,9 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
                           }
                       }
 
-                      var chartContainer = document.getElementById('chart-container');
-                      var chart = echarts.init(chartContainer);
-
                       var options = {
                           xAxis: {
                               type: 'category',
@@ -116,17 +124,30 @@ document.addEventListener('DOMContentLoaded', function () {
                                       return params.value + params.data.unit;
                                   },
                               },
-                          }, ],
+                          }],
                       };
 
                       chart.setOption(options);
+                      // 로딩 표시 제거
+                      chart.hideLoading();
                   } else {
                       console.log("No data available for the current hour.");
+                        // chart-container에 실패 메시지 표시
+                        jQuery('#chart-container').html('차트의 데이터를 불러오는데 실패했습니다.');
+                      // 로딩 표시 제거
+                      chart.hideLoading();
                   }
               } else {
                   console.log("Request failed. Result code: " + dataHeader);
               }
           },
+          error: function(xhr, status, error) {
+              console.log("Request failed: " + error);
+                // chart-container에 실패 메시지 표시
+                jQuery('#chart-container').html('차트의 데이터를 불러오는데 실패했습니다.');
+              // 로딩 표시 제거
+              chart.hideLoading();
+          }
       });
   }
 
