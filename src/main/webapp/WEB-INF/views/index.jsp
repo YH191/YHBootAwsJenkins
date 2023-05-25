@@ -29,6 +29,20 @@ document.addEventListener('DOMContentLoaded', function() {
         initialView: 'dayGridMonth',
         events: '${pageContext.request.contextPath}/resources/data/events.json',
         locale: 'ko', // 언어를 한글로 설정
+        eventMouseEnter: function (mouseEnterInfo) {
+            // 마우스가 이벤트 위로 올라갔을 때 실행되는 콜백 함수
+            // 이벤트 내용을 표시하는 작업을 수행합니다.
+            var event = mouseEnterInfo.event;
+            var tooltipContent = event.title; // 이벤트의 제목을 tooltip 내용으로 설정합니다.
+
+            // tooltip을 생성하고 표시합니다.
+            $(mouseEnterInfo.el).tooltip({
+                title: tooltipContent,
+                placement: 'top',
+                trigger: 'hover',
+                container: 'body'
+            });
+        }
     });
     calendar.render();
 
@@ -64,8 +78,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         var chartData = data.result.response.body.items.item;
                         // console.log(chartData);
 
-                        var currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-                        var currentHour = new Date().getHours() + "00"; // Get current hour in HHMM format
+                        var formattedDate = new Date();
+                        var year = formattedDate.getFullYear();
+                        var month = formattedDate.getMonth() + 1;
+                        var day = formattedDate.getDate();
+
+                        if (month < 10) {
+                          month = "0" + month;
+                        }
+                        if (day < 10) {
+                          day = "0" + day;
+                        }
+
+                        var currentDate = year + month + day;
+                        var currentHour = new Date().getHours().toString().padStart(2, '0') + "00";
 
                         var filteredData = chartData.filter(function(item) {
                             return item.fcstDate === currentDate && item.fcstTime === currentHour;

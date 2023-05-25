@@ -63,9 +63,9 @@ public class WeatherApiController {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        // Adjust the date if the current time is before 2:20 AM
-        if (hour == 0 && minute < 20) {
-            calendar.add(Calendar.DAY_OF_MONTH, -1); // Subtract 1 day
+        if ((hour >= 0 && hour < 2) || (hour == 2 && minute < 20)) {
+            // Subtract 1 day if the current time is between 00:00 and 02:19
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -77,9 +77,9 @@ public class WeatherApiController {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        if ((hour == 23 && minute >= 20) || (hour >= 0 && hour < 2)) {
+        if ((hour == 23 && minute >= 20) && hour < 24) {
             return "2300";
-        } else if (hour >= 20 && hour < 23) {
+        } else if ((hour >= 20 && hour < 23) || (hour == 23 && minute < 20)) {
             return "2000";
         } else if (hour >= 17 && hour < 20) {
             return "1700";
@@ -91,12 +91,10 @@ public class WeatherApiController {
             return "0500";
         } else if (hour >= 2 && hour < 5) {
             return "0200";
-        } else if (hour == 0 && minute >= 0 && minute < 20) {
-            calendar.add(Calendar.DAY_OF_MONTH, -1); // Subtract 1 day
+        } else {
             return "2300";
         }
 
-        return null; // Return null if the current time doesn't fall within the specified ranges
     }
 
     public HashMap<String, Object> getDataFromJson(String url, String encoding, String type, String jsonStr) throws Exception {
