@@ -118,6 +118,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
 
                             var options = {
+                                title: {
+                                    text: year + '년 ' + month + '월 ' + day + '일 ' + currentHour.substring(0, 2) + '시의 날씨정보',
+                                    textStyle: {
+                                        fontSize: 14,
+                                        fontWeight: 'bold',
+                                    },
+                                    left: 'center',
+                                },
                                 xAxis: {
                                     type: 'category',
                                     data: ['기온', '강수확률', '습도'],
