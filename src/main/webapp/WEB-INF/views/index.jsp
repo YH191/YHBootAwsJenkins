@@ -26,25 +26,86 @@ document.addEventListener('DOMContentLoaded', function() {
     /* 달력 */
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: '${pageContext.request.contextPath}/resources/data/events.json',
-        locale: 'ko', // 언어를 한글로 설정
-        eventMouseEnter: function (mouseEnterInfo) {
-            // 마우스가 이벤트 위로 올라갔을 때 실행되는 콜백 함수
-            // 이벤트 내용을 표시하는 작업을 수행합니다.
-            var event = mouseEnterInfo.event;
-            var tooltipContent = event.title; // 이벤트의 제목을 tooltip 내용으로 설정합니다.
+      initialView: 'dayGridMonth',
+      events: '${pageContext.request.contextPath}/resources/data/events.json',
+      locale: 'ko', // 언어를 한글로 설정
+      eventMouseEnter: function(mouseEnterInfo) {
+        // 마우스가 이벤트 위로 올라갔을 때 실행되는 콜백 함수
+        // 이벤트 내용을 표시하는 작업을 수행합니다.
+        var event = mouseEnterInfo.event;
+        var tooltipContent = event.title; // 이벤트의 제목을 tooltip 내용으로 설정합니다.
 
-            // tooltip을 생성하고 표시합니다.
-            $(mouseEnterInfo.el).tooltip({
-                title: tooltipContent,
-                placement: 'top',
-                trigger: 'hover',
-                container: 'body'
-            });
+        // tooltip을 생성하고 표시합니다.
+        $(mouseEnterInfo.el).tooltip({
+          title: tooltipContent,
+          placement: 'top',
+          trigger: 'hover',
+          container: 'body',
+        });
+      },
+      headerToolbar: {
+        left: 'customTitle prev,next today',
+        right: ''
+      },
+      customButtons: {
+        customTitle: {
+          click: function() {
+            calendar.changeView('dayGridMonth');
+          },
+          themeSystem: 'standard' // 기본 테마 스타일 사용
         }
+      },
+      buttonText: {
+        today: '오늘'
+      },
+      titleFormat: {
+        year: 'numeric',
+        month: 'long'
+      },
     });
+
+    // 타이틀의 텍스트 크기를 14px로 설정
+    var customTitleElement = calendarEl.querySelector('.fc-customTitle-button');
+    if (customTitleElement) {
+      customTitleElement.style.fontSize = '14px';
+    }
+
+    // 커스텀 버튼의 배경색 설정
+    var customTitleButton = calendarEl.querySelector('.fc-customTitle-button');
+    if (customTitleButton) {
+      customTitleButton.style.backgroundColor = 'white';
+    }
+
     calendar.render();
+
+    // 타이틀의 텍스트를 반환하는 함수
+    function getCustomTitleText() {
+      var viewTitle = calendar.view.title;
+      var dateTitle = viewTitle.toLowerCase().replace(',', ' ');
+
+      return dateTitle;
+    }
+
+    // 버튼 텍스트를 업데이트하는 함수
+    function updateCustomTitleText() {
+      var customTitleButton = calendarEl.querySelector('.fc-customTitle-button');
+      customTitleButton.innerHTML = getCustomTitleText();
+    }
+
+    // 초기 버튼 텍스트 설정
+    updateCustomTitleText();
+
+    // 이벤트 클릭 시 커스텀 버튼 텍스트 업데이트
+    calendar.on('eventClick', function(info) {
+      updateCustomTitleText();
+    });
+
+    // 이전/다음/오늘 버튼 클릭 시 커스텀 버튼 텍스트 업데이트
+    calendar.on('datesSet', function(info) {
+      updateCustomTitleText();
+    });
+
+
 
     /* 날씨 */
     function weather() {
@@ -219,31 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     weather();
 
-    // 차트 컨테이너 엘리먼트를 가져옵니다.
-    var chartContainer = document.getElementById('chart-container');
-
-    // 차트 높이를 동적으로 계산하여 설정하는 함수
-    function setChartHeight() {
-        // 현재 화면의 높이를 가져옵니다.
-        var screenHeight = window.innerHeight;
-
-        // 초기 크기로 설정할 높이를 지정합니다.
-        var initialHeight = 420;
-
-        // 차트 컨테이너의 높이를 계산합니다.
-        var chartHeight = Math.min(screenHeight - 20, initialHeight); // 필요한 여백을 고려하여 계산합니다.
-
-        // 차트 컨테이너의 높이를 설정합니다.
-        chartContainer.style.height = chartHeight + 'px';
-    }
-
-    // 초기 로드 시 차트 높이 설정
-    setChartHeight();
-
-    // 창 크기 변경 시 차트 높이 재조정
-    window.addEventListener('resize', function() {
-        setChartHeight();
-    });
 });
 </script>
 <%@ include file="layout/footer.jspf" %>
