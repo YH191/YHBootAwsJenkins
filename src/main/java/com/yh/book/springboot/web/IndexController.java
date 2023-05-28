@@ -53,6 +53,7 @@ public class IndexController {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
             model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("userRole", user.getRole().getValue()); // userRole 값을 추가로 전달
         }
 
         model.addAttribute("list", list);
@@ -135,6 +136,7 @@ public class IndexController {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
             model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("userRole", user.getRole().getValue()); // userRole 값을 추가로 전달
         }
         model.addAttribute("searchList", searchList);
         model.addAttribute("keyword", keyword);

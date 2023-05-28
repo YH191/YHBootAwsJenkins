@@ -18,27 +18,33 @@
           </tr>
         </thead>
         <tbody id="tbody">
-         <c:forEach items="${searchList.content}" var="post">
-           <tr>
-             <td>${post.id}</td>
-             <td><a href="/posts/read/${post.id}">${post.title}</a></td>
-             <td>${post.writer}</td>
-             <td>${fn:substring(post.modifiedDate, 0, 10)}</td>
-             <td>${post.view}</td>
-           </tr>
-         </c:forEach>
+        <c:if test="${empty searchList.content}">
+            <!-- 해당 내용이 실행될 경우 list 변수가 없는 경우임 -->
+            <tr>
+                <td colspan="5">게시글이 없습니다.</td>
+            </tr>
+        </c:if>
+        <c:forEach items="${searchList.content}" var="post">
+            <tr>
+                <td>
+                    <c:if test="${post.secret}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                          <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                        </svg>
+                    </c:if>
+                    ${post.id}
+                </td>
+                <td>
+                    <a href="javascript:void(0);" onclick="viewPost(${post.id}, '${post.writer}', ${post.secret})">${post.title}</a>
+                </td>
+                <td>${post.writer}</td>
+                <td>${fn:substring(post.modifiedDate, 0, 10)}</td>
+                <td>${post.view}</td>
+            </tr>
+        </c:forEach>
         </tbody>
-      </table>
-      <c:if test="${user != null}">
-        <div style="text-align:right">
-          <a href="/posts/write" role="button" class="btn btn-primary">글쓰기</a>
-        </div>
-      </c:if>
-      <c:if test="${user == null}">
-        <div style="text-align:right">
-          <a role="button" class="btn btn-primary">비회원은 글을 작성할 수 없습니다</a>
-        </div>
-      </c:if>
+    </table>
+
 
       <%-- Pagination --%>
       <div class="pagination justify-content-center">
@@ -88,5 +94,21 @@
       </div>
     </div>
     <%@ include file="../layout/footer.jspf" %>
+
+<script>
+
+    function viewPost(postId, writer, secret) {
+    const userRole = '${userRole}';
+
+        // 현재 사용자와 글 작성자가 같거나 관리자인 경우에만 글을 볼 수 있도록 처리
+        if (secret && (userRole === 'ROLE_ADMIN' || '${username}' === writer)) {
+            window.location.href = "/posts/read/" + postId;
+        } else if (secret && (userRole !== 'ROLE_ADMIN' || '${username}' !== writer)) {
+            alert('작성자와 관리자만 볼 수 있는 비밀글입니다.');
+        } else {
+            window.location.href = "/posts/read/" + postId;
+        }
+    }
+</script>
   </body>
 </html>

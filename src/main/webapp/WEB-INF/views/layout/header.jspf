@@ -19,6 +19,7 @@
     <div class="btn-group-main">
       <a href="/" role="button" class="btn btn-outline-secondary">메인</a>
       <a href="/posts" role="button" class="btn btn-outline-secondary">Q & A</a>
+      <%--<a href="/adminPage" role="button" class="btn btn-outline-secondary">관리자 페이지</a>--%>
     </div>
     <div class="btn-group-secondary">
         <% if (username != null) { %>

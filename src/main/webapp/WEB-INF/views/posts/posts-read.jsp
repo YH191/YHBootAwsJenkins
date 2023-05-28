@@ -26,7 +26,7 @@
     </form>
 
     <!-- Buttons -->
-    <a href="/posts" role="button" class="btn btn-info"> 목록</a>
+    <button type="button" onclick="goBack()" class="btn btn-info">목록</button>
     <c:if test="${user != null}">
       <c:if test="${writer}">
         <a href="/posts/update/${posts.id}" role="button" class="btn btn-primary"> 수정</a>
@@ -54,13 +54,17 @@
 
       }).done(function () {
         alert("삭제되었습니다.");
-        window.location.href = '/posts';
+        goBack(); // 이전 페이지로 이동
       }).fail(function (error) {
         alert(JSON.stringify(error));
       });
     } else {
       return false;
     }
+  }
+
+  function goBack() {
+    window.history.back(); // 이전 페이지로 이동
   }
 </script>
 

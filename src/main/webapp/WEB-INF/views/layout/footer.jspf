@@ -3,7 +3,7 @@
 <footer class="footer">
     <!-- 푸터 내용 -->
     <div class="container">
-        <a href="#top" class="btn btn-primary btn-sm scroll-to-top">
+        <a href="#top" id="topBtn" class="btn btn-primary btn-sm scroll-to-top">
             <i class="bi bi-arrow-up"></i> <!-- 아이콘 추가 -->
         </a>
     </div>
@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function() {
     // 맨 위로 이동하는 버튼 클릭 시
-    $('.btn-primary').click(function() {
+    $('#topBtn').click(function() {
         $('html, body').animate({scrollTop: 0}, 'slow');
         return false;
     });

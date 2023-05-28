@@ -232,6 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             chart.setOption(options);
                             chart.hideLoading();
                         } else {
+                        var chartData = data.result.response.body.items.item;
+                        console.log(chartData);
                             // 데이터 요청은 성공했지만 데이터가 없거나 오류가 있는 경우
                             console.log("No data available for the current hour.");
 

@@ -15,9 +15,13 @@
             <label for="content">내용</label>
             <textarea rows="10" class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
           </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="secret" name="secret">
+            <label class="form-check-label" for="secret">비밀글 설정</label>
+          </div>
         </form>
-        <a href="/posts" role="button" class="btn btn-info"> 취소</a>
-        <button type="button" id="btn-save" class="btn btn-primary"> 작성</button>
+        <a href="/posts" role="button" class="btn btn-info">취소</a>
+        <button type="button" id="btn-save" class="btn btn-primary">작성</button>
       </div>
     </div>
 
@@ -32,7 +36,8 @@
         const data = {
           title: $('#title').val(),
           writer: $('#writer').val(),
-          content: $('#content').val()
+          content: $('#content').val(),
+          secret: $('#secret').prop('checked')
         };
 
         // 공백 및 빈 문자열 체크

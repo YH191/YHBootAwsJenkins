@@ -37,7 +37,7 @@ public class User extends BaseTimeEntity implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role = Role.USER;
+    private Role role;
 
     /* 회원정보 수정 */
     public void modify(String nickname, String password) {
@@ -54,5 +54,19 @@ public class User extends BaseTimeEntity implements Serializable {
 
     public String getRoleValue() {
         return this.role.getValue();
+    }
+
+    /* 기본 생성자에서 role을 USER로 설정하는 것을 변경 */
+    public User(String username, String nickname, String password, String email, Role role) {
+        this.username = username;
+        this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.loginInfo = "local";
+        if (username.equalsIgnoreCase("admin")) {
+            this.role = Role.ADMIN;
+        } else {
+            this.role = Role.USER;
+        }
     }
 }

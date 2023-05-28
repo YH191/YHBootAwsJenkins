@@ -50,7 +50,7 @@ public class UserDto {
                     .nickname(nickname)
                     .email(email)
                     .loginInfo("local")
-                    .role(role.USER)
+                    .role(username.equalsIgnoreCase("admin")? role.ADMIN : role.USER)
                     .build();
             return user;
         }

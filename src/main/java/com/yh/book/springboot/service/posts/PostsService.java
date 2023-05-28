@@ -27,8 +27,12 @@ public class PostsService {
         /* User 정보를 가져와 dto에 담아준다. */
         User user = userRepository.findByNickname(nickname);
         dto.setUser(user);
-        log.info("PostsService save() 실행");
+//        log.info("PostsService save() 실행");
+        // 비밀글 여부를 엔티티에 설정
+        boolean isSecret = dto.isSecret();
         Posts posts = dto.toEntity();
+        posts.setSecret(isSecret);
+
         postsRepository.save(posts);
 
         return posts.getId();

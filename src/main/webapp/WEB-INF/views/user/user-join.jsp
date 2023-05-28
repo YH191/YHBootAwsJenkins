@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../layout/header.jspf" %>
+<body>
 <div id="posts_list">
     <div class="container col-md-4">
         <form id="joinForm" action="/auth/joinProc" method="post">
@@ -105,4 +106,5 @@
         }
     });
 </script>
+</body>
 </html>

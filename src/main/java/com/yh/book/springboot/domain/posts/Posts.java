@@ -33,6 +33,9 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
 
+    @Column(nullable = false)
+    private boolean secret; // 비밀글 여부를 나타내는 필드
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -41,6 +44,14 @@ public class Posts extends BaseTimeEntity {
     @OrderBy("id asc") // 댓글 정렬
     private List<Comment> comments;
 
+    public boolean isSecret() {
+        return secret;
+    }
+
+    /*비밀글 정보*/
+    public void setSecret(boolean secret) {
+        this.secret = secret;
+    }
     /* 게시글 수정 */
     public void update(String title, String content){
         this.title = title;

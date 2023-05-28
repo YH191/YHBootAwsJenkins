@@ -24,6 +24,7 @@ public class PostsDto {
         private String content;
         private String createdDate, modifiedDate;
         private int view;
+        private boolean secret; // 비밀글 여부를 나타내는 필드
         private User user;
 
         /* Dto -> Entity */
@@ -34,6 +35,7 @@ public class PostsDto {
                     .writer(writer)
                     .content(content)
                     .view(0)
+                    .secret(secret)
                     .user(user)
                     .build();
 
@@ -54,6 +56,7 @@ public class PostsDto {
         private String content;
         private String createdDate, modifiedDate;
         private int view;
+        private boolean secret;
         private Long userId;
         private List<CommentDto.Response> comments;
 
@@ -67,6 +70,7 @@ public class PostsDto {
             this.createdDate = posts.getCreatedDate();
             this.modifiedDate = posts.getModifiedDate();
             this.view = posts.getView();
+            this.secret = posts.isSecret();
             this.userId = posts.getUser().getId();
             this.comments = posts.getComments().stream().map(CommentDto.Response::new).collect(Collectors.toList());
         }
