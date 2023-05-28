@@ -3,11 +3,9 @@
 <footer class="footer">
     <!-- 푸터 내용 -->
     <div class="container">
-        <p>푸터 내용</p>
         <a href="#top" class="btn btn-primary btn-sm scroll-to-top">
             <i class="bi bi-arrow-up"></i> <!-- 아이콘 추가 -->
         </a>
-
     </div>
 </footer>
 <script>
