@@ -104,7 +104,7 @@
         if (secret && (userRole === 'ROLE_ADMIN' || '${username}' === writer)) {
             window.location.href = "/posts/read/" + postId;
         } else if (secret && (userRole !== 'ROLE_ADMIN' || '${username}' !== writer)) {
-            alert('작성자와 관리자만 볼 수 있는 비밀글입니다.');
+            swal('작성자와 관리자만 볼 수 있는 비밀글입니다.');
         } else {
             window.location.href = "/posts/read/" + postId;
         }

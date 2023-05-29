@@ -13,13 +13,12 @@
   <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/index.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>
 
   <div id="header">
     <div class="btn-group-main">
       <a href="/" role="button" class="btn btn-outline-secondary">메인</a>
       <a href="/posts" role="button" class="btn btn-outline-secondary">Q & A</a>
-      <%--<a href="/adminPage" role="button" class="btn btn-outline-secondary">관리자 페이지</a>--%>
     </div>
     <div class="btn-group-secondary">
         <% if (username != null) { %>

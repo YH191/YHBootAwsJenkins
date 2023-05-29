@@ -26,8 +26,8 @@
                         <span style="font-size: small">${comment.nickname}</span>
                         <span style="font-size: xx-small">${comment.createdDate}</span>
                     </span>
-                    <%-- isWriter가 true일 경우 --%>
-                    <c:if test="${isWriter}">
+                    <%-- 댓글 작성자와 로그인한 유저가 같을 경우에만 표시 --%>
+                      <c:if test="${isWriter && comment.userId eq uidc}">
                         <%-- 댓글 수정 버튼 --%>
                         <button type="button" class="btn btn-link btn-sm" data-toggle="collapse" data-target=".multi-collapse-${comment.id}" aria-expanded="false" aria-controls="multi-collapse-${comment.id}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -64,18 +64,174 @@
     </ul>
 </div>
 
-<br/>
 
 <script>
-    $(document).ready(function () {
-        // 댓글 저장
-        $('#btn-comment-save').on('click', function () {
-            main.commentSave();
-        });
-        // 댓글 수정
-        $(document).on('click', '#btn-comment-update', function () {
-            var form = $(this).closest('form');
-            main.commentUpdate(form[0]);
-        });
+    const main = {
+        init: function() {
+            const _this = this;
+
+            // 댓글 저장
+            $('#btn-comment-save').on('click', function() {
+                _this.commentSave();
+            });
+            // 댓글 수정
+            $(document).on('click', '#btn-comment-update', function() {
+                const form = $(this).closest('form');
+                _this.commentUpdate(form[0]);
+            });
+        },
+
+        /** 댓글 저장 */
+        commentSave: function() {
+            const data = {
+                postsId: $('#postsId').val(),
+                comment: $('#comment').val()
+            }
+
+            // 공백 및 빈 문자열 체크
+            if (!data.comment || data.comment.trim() === "") {
+                swal({
+                    title: "경고",
+                    text: "공백 또는 입력하지 않은 부분이 있습니다.",
+                    icon: "warning"
+                });
+                return false;
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/posts/' + data.postsId + '/comments',
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    swal({
+                        title: "성공",
+                        text: "댓글이 등록되었습니다.",
+                        icon: "success"
+                    });
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                }).fail(function(error) {
+                    swal({
+                        title: "오류",
+                        text: JSON.stringify(error),
+                        icon: "error"
+                    });
+                });
+            }
+        },
+        /** 댓글 수정 */
+        commentUpdate: function(form) {
+            const data = {
+                id: form.querySelector('#id').value,
+                postsId: form.querySelector('#postsId').value,
+                comment: form.querySelector('#comment-content').value,
+                writerUserId: form.querySelector('#writerUserId').value,
+                sessionUserId: form.querySelector('#sessionUserId').value
+            }
+
+            if (data.writerUserId !== data.sessionUserId) {
+                swal({
+                    title: "경고",
+                    text: "본인이 작성한 댓글만 수정 가능합니다.",
+                    icon: "warning"
+                });
+                return false;
+            }
+
+            if (!data.comment || data.comment.trim() === "") {
+                swal({
+                    title: "경고",
+                    text: "공백 또는 입력하지 않은 부분이 있습니다.",
+                    icon: "warning"
+                });
+                return false;
+            }
+
+            swal({
+                title: "수정하시겠습니까?",
+                icon: "warning",
+                buttons: {
+                    confirm: "확인",
+                    cancel: "취소"
+                }
+            }).then(function(value) {
+                if (value) {
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/posts/' + data.postsId + '/comments/' + data.id,
+                        dataType: 'JSON',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    }).done(function() {
+                        swal({
+                            title: "성공",
+                            text: "수정되었습니다.",
+                            icon: "success"
+                        });
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    }).fail(function(error) {
+                        swal({
+                            title: "오류",
+                            text: JSON.stringify(error),
+                            icon: "error"
+                        });
+                    });
+                }
+            });
+        },
+
+        /** 댓글 삭제 */
+        commentDelete: function(postsId, commentId, commentWriterId, sessionUserId) {
+
+            // 본인이 작성한 글인지 확인
+            if (commentWriterId !== sessionUserId) {
+                swal({
+                    title: "경고",
+                    text: "본인이 작성한 댓글만 삭제 가능합니다.",
+                    icon: "warning"
+                });
+            } else {
+                swal({
+                    title: "삭제하시겠습니까?",
+                    icon: "warning",
+                    buttons: {
+                        confirm: "확인",
+                        cancel: "취소"
+                    }
+                }).then(function(value) {
+                    if (value) {
+                        $.ajax({
+                            type: 'DELETE',
+                            url: '/api/posts/' + postsId + '/comments/' + commentId,
+                            dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8'
+                        }).done(function() {
+                            swal({
+                                title: "성공",
+                                text: "삭제되었습니다.",
+                                icon: "success"
+                            });
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        }).fail(function(error) {
+                            swal({
+                                title: "오류",
+                                text: JSON.stringify(error),
+                                icon: "error"
+                            });
+                        });
+                    }
+                });
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        main.init();
     });
 </script>

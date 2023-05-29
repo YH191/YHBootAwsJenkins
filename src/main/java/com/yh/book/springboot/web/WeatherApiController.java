@@ -75,26 +75,25 @@ public class WeatherApiController {
     public String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
 
-        if ((hour == 23 && minute >= 20) && hour < 24) {
+        if (hour >= 0 && hour < 3) {
             return "2300";
-        } else if ((hour >= 20 && hour < 23) || (hour == 23 && minute < 20)) {
-            return "2000";
-        } else if (hour >= 17 && hour < 20) {
-            return "1700";
-        } else if (hour >= 14 && hour < 17) {
-            return "1400";
-        } else if (hour >= 8 && hour < 14) {
-            return "0800";
-        } else if (hour >= 5 && hour < 8) {
-            return "0500";
-        } else if (hour >= 2 && hour < 5) {
+        } else if (hour >= 3 && hour < 6) {
             return "0200";
+        } else if (hour >= 6 && hour < 9) {
+            return "0500";
+        } else if (hour >= 9 && hour < 15) {
+            return "0800";
+        } else if (hour >= 15 && hour < 18) {
+            return "1400";
+        } else if (hour >= 18 && hour < 21) {
+            return "1700";
+        } else if (hour >= 21 && hour < 24) {
+            return "2000";
         } else {
-            return "2300";
+            // 해당하는 구간이 없는 경우 기본값으로 "0200" 반환
+            return "0200";
         }
-
     }
 
     public HashMap<String, Object> getDataFromJson(String url, String encoding, String type, String jsonStr) throws Exception {

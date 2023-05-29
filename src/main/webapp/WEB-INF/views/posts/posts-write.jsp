@@ -42,7 +42,7 @@
 
         // 공백 및 빈 문자열 체크
         if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
-          alert("입력하지 않은 부분이 있습니다.");
+          swal("입력하지 않은 부분이 있습니다.");
           return false;
         } else {
           $.ajax({
@@ -52,10 +52,25 @@
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
           }).done(function () {
-            alert('등록되었습니다.');
-            window.location.href = '/posts';
+            swal({
+              title: '등록되었습니다.',
+              icon: 'success',
+              buttons: {
+                confirm: {
+                  text: '확인',
+                  value: true,
+                  visible: true,
+                  className: 'swal-button-confirm',
+                  closeModal: true
+                }
+              }
+            }).then((value) => {
+              if (value) {
+                window.location.href = '/posts';
+              }
+            });
           }).fail(function (error) {
-            alert(JSON.stringify(error));
+            swal(JSON.stringify(error));
           });
         }
       }

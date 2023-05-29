@@ -33,40 +33,76 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#btn-update').click(function() {
-            update();
-        });
+  $(document).ready(function() {
+    $('#btn-update').click(function() {
+      update();
     });
+  });
 
-    function update() {
-        const data = {
-            id: $('#id').val(),
-            title: $('#title').val(),
-            content: $('#content').val()
-        };
+  function update() {
+    const data = {
+      id: $('#id').val(),
+      title: $('#title').val(),
+      content: $('#content').val()
+    };
 
-        const con_check = confirm("수정하시겠습니까?");
-        if (con_check === true) {
-            if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
-                alert("입력하지 않은 부분이 있습니다.");
-                return false;
-            } else {
-                $.ajax({
-                    type: 'PUT',
-                    url: '/api/posts/' + data.id,
-                    dataType: 'JSON',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data)
-                }).done(function () {
-                    alert("수정되었습니다.");
-                    window.location.href = '/posts/read/' + data.id;
-                }).fail(function (error) {
-                    alert(JSON.stringify(error));
-                });
-            }
+    swal({
+      title: "수정하시겠습니까?",
+      icon: "warning",
+      buttons: {
+        confirm: {
+          text: "수정",
+          value: true,
+          visible: true,
+          className: "btn-primary",
+          closeModal: true
+        },
+        cancel: {
+          text: "취소",
+          value: false,
+          visible: true,
+          className: "",
+          closeModal: true,
         }
-    }
+      },
+      dangerMode: false,
+    }).then((confirm) => {
+      if (confirm) {
+        if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
+          swal({
+            title: "입력 오류",
+            text: "입력하지 않은 부분이 있습니다.",
+            icon: "error",
+          });
+          return false;
+        } else {
+          $.ajax({
+            type: 'PUT',
+            url: '/api/posts/' + data.id,
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+          }).done(() => {
+            swal({
+              title: "수정 완료",
+              text: "게시물이 수정되었습니다.",
+              icon: "success",
+            }).then(() => {
+              window.location.href = '/posts/read/' + data.id;
+            });
+          }).fail((error) => {
+            swal({
+              title: "에러 발생",
+              text: JSON.stringify(error),
+              icon: "error",
+            });
+          });
+        }
+      } else {
+        return false;
+      }
+    });
+  }
 </script>
 
 <%@ include file="../layout/footer.jspf" %>

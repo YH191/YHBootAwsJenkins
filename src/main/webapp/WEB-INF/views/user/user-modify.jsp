@@ -32,7 +32,7 @@
             </div>
 
             <button id="btn-user-modify" class="btn btn-primary">완료</button>
-            <a href="/" role="button" class="btn btn-info">목록</a>
+            <a href="/" role="button" class="btn btn-info">취소</a>
         </form>
     </div>
 </div>
@@ -40,71 +40,109 @@
 </html>
 
 <script>
-    function validateForm(event) {
-        event.preventDefault();
+  function validateForm(event) {
+    event.preventDefault();
 
-        var password = document.getElementById('password').value;
-        var nickname = document.getElementById('nickname').value;
-        var validPassword = document.getElementById('valid_password');
-        var validNickname = document.getElementById('valid_nickname');
+    var password = document.getElementById('password').value;
+    var nickname = document.getElementById('nickname').value;
+    var validPassword = document.getElementById('valid_password');
+    var validNickname = document.getElementById('valid_nickname');
 
-        if (!/^(?=.*[0-9])(?=.*\W)(?=\S+$).{8,16}$/.test(password)) {
-            validPassword.textContent = '8~16자, 숫자와 특수문자를 사용하세요.';
-            return false;
-        } else {
-            validPassword.textContent = '';
-        }
-
-        if (!/^[\u3131-\uD79Da-zA-Z0-9-_]{2,10}$/.test(nickname)) {
-            validNickname.textContent = '특수문자를 제외한 2~10자를 사용하세요.';
-            return false;
-        } else {
-            validNickname.textContent = '';
-        }
-
-        var con_check = confirm("수정하시겠습니까?");
-        if (con_check === true) {
-            document.getElementById('btn-user-modify').disabled = true;
-            document.getElementById('btn-user-modify').textContent = '수정 중...';
-
-            var form = document.getElementById('user-modify-form');
-            var data = {
-                id: form.elements["id"].value,
-                modifiedDate: form.elements["modifiedDate"].value,
-                username: form.elements["username"].value,
-                password: form.elements["password"].value,
-                nickname: form.elements["nickname"].value
-            };
-
-            fetch('/api/user', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(function (response) {
-                    if (response.ok) {
-                        alert("회원 수정이 완료되었습니다.", "success");
-                        window.location.href = "/";
-                    } else if (response.status === 500) {
-                        alert("이미 사용중인 닉네임 입니다.", "error");
-                        document.getElementById('nickname').focus();
-                        document.getElementById('btn-user-modify').disabled = false;
-                        document.getElementById('btn-user-modify').textContent = '완료';
-                    } else {
-                        alert("오류가 발생했습니다.", "error");
-                        document.getElementById('btn-user-modify').disabled = false;
-                        document.getElementById('btn-user-modify').textContent = '완료';
-                        console.log(response.statusText);
-                    }
-                })
-                .catch(function (error) {
-                    alert("오류가 발생했습니다.", "error");
-                    console.log(error);
-                });
-        } else {
-            return false;
-        }
+    if (!/^(?=.*[0-9])(?=.*\W)(?=\S+$).{8,16}$/.test(password)) {
+      validPassword.textContent = '8~16자, 숫자와 특수문자를 사용하세요.';
+      return false;
+    } else {
+      validPassword.textContent = '';
     }
+
+    if (!/^[\u3131-\uD79Da-zA-Z0-9-_]{2,10}$/.test(nickname)) {
+      validNickname.textContent = '특수문자를 제외한 2~10자를 사용하세요.';
+      return false;
+    } else {
+      validNickname.textContent = '';
+    }
+
+    swal({
+      title: "수정하시겠습니까?",
+      icon: "warning",
+      buttons: {
+        confirm: {
+          text: "수정",
+          value: true,
+          visible: true,
+          className: "btn-primary",
+          closeModal: true
+        },
+        cancel: {
+          text: "취소",
+          value: false,
+          visible: true,
+          className: "",
+          closeModal: true,
+        }
+      },
+      dangerMode: false,
+    }).then((confirm) => {
+      if (confirm) {
+        document.getElementById('btn-user-modify').disabled = true;
+        document.getElementById('btn-user-modify').textContent = '수정 중...';
+
+        var form = document.getElementById('user-modify-form');
+        var data = {
+          id: form.elements["id"].value,
+          modifiedDate: form.elements["modifiedDate"].value,
+          username: form.elements["username"].value,
+          password: form.elements["password"].value,
+          nickname: form.elements["nickname"].value
+        };
+
+        fetch('/api/user', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(function (response) {
+            if (response.ok) {
+              swal({
+                title: "회원 수정 완료",
+                text: "회원 정보가 수정되었습니다.",
+                icon: "success",
+              }).then(() => {
+                window.location.href = "/";
+              });
+            } else if (response.status === 500) {
+              swal({
+                title: "닉네임 오류",
+                text: "이미 사용중인 닉네임입니다.",
+                icon: "error",
+              });
+              document.getElementById('nickname').focus();
+              document.getElementById('btn-user-modify').disabled = false;
+              document.getElementById('btn-user-modify').textContent = '완료';
+            } else {
+              swal({
+                title: "오류 발생",
+                text: "오류가 발생했습니다.",
+                icon: "error",
+              });
+              document.getElementById('btn-user-modify').disabled = false;
+              document.getElementById('btn-user-modify').textContent = '완료';
+              console.log(response.statusText);
+            }
+          })
+          .catch(function (error) {
+            swal({
+              title: "오류 발생",
+              text: "오류가 발생했습니다.",
+              icon: "error",
+            });
+            console.log(error);
+          });
+      } else {
+        return false;
+      }
+    });
+  }
 </script>

@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             chart.hideLoading();
                         } else {
                         var chartData = data.result.response.body.items.item;
-                        console.log(chartData);
+                        //console.log(chartData);
                             // 데이터 요청은 성공했지만 데이터가 없거나 오류가 있는 경우
                             console.log("No data available for the current hour.");
 
@@ -256,12 +256,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 error: function(xhr, status, error) {
                     // 데이터 요청에 실패한 경우
-                    console.log("Request failed: " + error);
+                    //console.log("Request failed: " + error);
 
                     if (retryCount < maxRetryCount) {
                         // 재시도 가능한 횟수를 초과하지 않았으면 재시도
                         retryCount++;
-                        console.log("Retrying request (" + retryCount + " of " + maxRetryCount + ")...");
+                        //console.log("Retrying request (" + retryCount + " of " + maxRetryCount + ")...");
                         requestWeatherData();
                     } else {
                         // 재시도 횟수를 초과한 경우 실패 메시지 표시

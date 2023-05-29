@@ -40,32 +40,81 @@
   </div>
 </div>
 
+
 <script>
   function deletePost() {
     const id = $('#id').val();
-    const con_check = confirm("정말 삭제하시겠습니까?");
 
-    if (con_check === true) {
-      $.ajax({
-        type: 'DELETE',
-        url: '/api/posts/' + id,
-        dataType: 'JSON',
-        contentType: 'application/json; charset=utf-8'
+    swal({
+      title: "정말 삭제하시겠습니까?",
+      text: "삭제한 게시물은 복구할 수 없습니다.",
+      icon: "warning",
+      buttons: {
+        confirm: {
+                  text: "삭제",
+                  value: true,
+                  visible: true,
+                  className: "btn-danger",
+                  closeModal: true
+                },
+        cancel: {
+          text: "취소",
+          value: false,
+          visible: true,
+          className: "",
+          closeModal: true,
+        }
+      },
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        $.ajax({
+          type: 'DELETE',
+          url: '/api/posts/' + id,
+          dataType: 'JSON',
+          contentType: 'application/json; charset=utf-8'
+        }).done(() => {
+          swal({
+            title: "삭제되었습니다.",
+            icon: "success",
+          }).then(() => {
+            goBack(); // 이전 페이지로 이동
+          });
+        }).fail((error) => {
+          swal({
+            title: "에러 발생",
+            text: JSON.stringify(error),
+            icon: "error",
+          });
+        });
+      } else {
+        return false;
+      }
+    });
+  }
 
-      }).done(function () {
-        alert("삭제되었습니다.");
-        goBack(); // 이전 페이지로 이동
-      }).fail(function (error) {
-        alert(JSON.stringify(error));
-      });
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      const results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+  function goBack() {
+    const referer = document.referrer.toLowerCase();
+
+    if (referer.includes('/posts/search')) {
+      const keyword = getUrlParameter('keyword');
+      if (keyword) {
+        const searchUrl = referer + '&keyword=' + encodeURIComponent(keyword);
+        window.location.href = searchUrl;
+      } else {
+        window.location.href = referer;
+      }
     } else {
-      return false;
+      window.location.href = '/posts';
     }
   }
 
-  function goBack() {
-    window.history.back(); // 이전 페이지로 이동
-  }
 </script>
 
 <%@ include file="../layout/footer.jspf" %>
