@@ -5,6 +5,7 @@
 <html>
   <%@ include file="../layout/header.jspf" %>
   <body>
+<div id="one-container">
     <div id="posts_list">
       <table id="table" class="table table-horizontal table-bordered">
         <h6>게시글 검색 결과</h6>
@@ -92,6 +93,7 @@
           </ul>
         </c:if>
       </div>
+    </div>
     </div>
     <%@ include file="../layout/footer.jspf" %>
 

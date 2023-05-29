@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../layout/header.jspf" %>
-<br/>
+
+<div id="one-container">
 <div id="posts_list">
     <div class="col-md-12">
         <form class="card">
@@ -27,9 +28,12 @@
         </form>
 
         <!-- 버튼 -->
+    <div id="content-container">
         <a href="/posts/read/${posts.id}" role="button" class="btn btn-info"> 취소</a>
         <button type="button" id="btn-update" class="btn btn-primary"> 완료</button>
+        </div>
     </div>
+</div>
 </div>
 
 <script>

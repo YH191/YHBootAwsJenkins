@@ -4,6 +4,7 @@
 <html>
 <%@ include file="../layout/header.jspf" %>
 <body>
+<div id="one-container">
 <div id="posts_list">
   <div class="col-md-12">
     <form class="card">
@@ -26,6 +27,7 @@
     </form>
 
     <!-- Buttons -->
+    <div id="content-container">
     <button type="button" onclick="goBack()" class="btn btn-info">목록</button>
     <c:if test="${user != null}">
       <c:if test="${writer}">
@@ -33,13 +35,17 @@
         <button type="button" onclick="deletePost()" id="btn-delete" class="btn btn-danger"> 삭제</button>
       </c:if>
     </c:if>
-
+    </div>
     <!-- Comments -->
-    <%@ include file="../comment/list.jspf" %>
-    <%@ include file="../comment/form.jspf" %>
+    <div id="content-container">
+        <%@ include file="../comment/list.jspf" %>
+    </div>
+    <div id="content-container">
+        <%@ include file="../comment/form.jspf" %>
+    </div>
   </div>
 </div>
-
+</div>
 
 <script>
   function deletePost() {

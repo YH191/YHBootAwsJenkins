@@ -7,7 +7,7 @@
         <%-- user가 있을 경우 --%>
         <c:if test="${not empty user}">
             <div class="card-body">
-                <textarea id="comment" class="form-control" rows="4" placeholder="댓글 작성"></textarea>
+                <textarea id="comment" class="form-control" rows="4"></textarea>
             </div>
             <div class="card-footer">
                 <button type="button" id="btn-comment-save" class="btn btn-outline-primary"> 등록</button>

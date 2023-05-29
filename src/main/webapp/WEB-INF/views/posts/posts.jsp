@@ -6,9 +6,11 @@
 <html>
 <%@ include file="../layout/header.jspf" %>
 <body>
+<div id="one-container">
 <div id="posts_list">
     <!-- 목록 출력 영역 -->
     <table id="table" class="table table-horizontal table-bordered">
+        <h6>Q & A</h6>
         <thead id="thead" class="thead-strong">
         <tr>
             <th>번호</th>
@@ -103,6 +105,7 @@
             <a role="button" class="btn btn-primary">비회원은 글을 작성할 수 없습니다</a>
         </div>
     </c:if>
+</div>
 </div>
 <%@ include file="../layout/footer.jspf" %>
 </body>
