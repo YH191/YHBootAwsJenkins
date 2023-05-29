@@ -8,7 +8,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/fullcalendar.global.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/echarts.min.js"></script>
 
-
 <body>
 <div id="main-content-wrapper">
   <div id="left-container">
@@ -122,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // ajax 데이터 받아오기 실패 시 사용할 변수
         var retryCount = 0;
-        var maxRetryCount = 3;
+        var maxRetryCount = 10;
 
         function requestWeatherData() {
             jQuery.ajax({
