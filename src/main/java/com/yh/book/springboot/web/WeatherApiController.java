@@ -16,13 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-/*
-    @RestController : 기본으로 하위에 있는 메소드들은 모두 @ResponseBody를 가지게 된다.
-    @RequestBody : 클라이언트가 요청한 XML/JSON을 자바 객체로 변환해서 전달 받을 수 있다.
-    @ResponseBody : 자바 객체를 XML/JSON으로 변환해서 응답 객체의 Body에 실어 전송할 수 있다.
-            클라이언트에게 JSON 객체를 받아야 할 경우는 @RequestBody, 자바 객체를 클라이언트에게 JSON으로 전달해야할 경우에는 @ResponseBody 어노테이션을 붙여주면 된다.
-    @ResponseBody를 사용한 경우 View가 아닌 자바 객체를 리턴해주면 된다.
-*/
 @RestController
 @RequestMapping("/api")
 public class WeatherApiController {
@@ -30,8 +23,7 @@ public class WeatherApiController {
     @GetMapping("/weather")
     public String restApiGetWeather() throws Exception {
         /*
-            @ API LIST ~
-
+            @ 공공데이터 기상청 API LIST
             getUltraSrtNcst 초단기실황조회
             getUltraSrtFcst 초단기예보조회
             getVilageFcst 동네예보조회
@@ -58,13 +50,14 @@ public class WeatherApiController {
         return jsonObj.toString();
     }
 
+    // 현재 날짜 가져오기
     public String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         if ((hour >= 0 && hour < 2) || (hour == 2 && minute < 20)) {
-            // Subtract 1 day if the current time is between 00:00 and 02:19
+            // 00:00 ~ 02:19 사이에는 이전 날짜로 설정
             calendar.add(Calendar.DAY_OF_MONTH, -1);
         }
 
@@ -72,6 +65,7 @@ public class WeatherApiController {
         return dateFormat.format(calendar.getTime());
     }
 
+    // 현재 시간 가져오기
     public String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -96,6 +90,7 @@ public class WeatherApiController {
         }
     }
 
+    // API 호출 및 결과 데이터 가져오기
     public HashMap<String, Object> getDataFromJson(String url, String encoding, String type, String jsonStr) throws Exception {
         boolean isPost = false;
 

@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <footer class="footer">
-    <!-- 푸터 내용 -->
-    <div class="container">
-        <a href="#top" id="topBtn" class="btn btn-primary btn-sm scroll-to-top">
-            <i class="bi bi-arrow-up"></i> <!-- 아이콘 추가 -->
-        </a>
-    </div>
+  <!-- 푸터 내용 -->
+  <div class="container">
+    <a href="#top" id="topBtn" class="btn btn-primary btn-sm scroll-to-top">
+      <i class="bi bi-arrow-up"></i>
+      <!-- 아이콘 추가 -->
+    </a>
+  </div>
 </footer>
 <script>
-$(document).ready(function() {
+  $(document).ready(function () {
     // 맨 위로 이동하는 버튼 클릭 시
-    $('#topBtn').click(function() {
-        $('html, body').animate({scrollTop: 0}, 'slow');
-        return false;
+    $('#topBtn').click(function () {
+      $('html, body').animate({ scrollTop: 0 }, 'slow');
+      return false;
     });
-});
+  });
 </script>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
 /**
- * 아이디 중복 확인 유효성 검증을 위한 커스텀 Validator 클래스
+ * 아이디 중복 확인 유효성 검증
  */
 @RequiredArgsConstructor
 @Component

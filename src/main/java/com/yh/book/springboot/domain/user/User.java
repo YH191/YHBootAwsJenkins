@@ -45,8 +45,7 @@ public class User extends BaseTimeEntity implements Serializable {
         this.password = password;
     }
 
-    /* 소셜로그인시 이미 등록된 회원이라면 수정날짜만 업데이트해줘서
-     * 기존 데이터를 보존하도록 예외처리 */
+    /* 소셜로그인시 이미 등록된 회원이라면 수정날짜만 업데이트 후 기존 데이터를 유지 */
     public User updateModifiedDate() {
         this.onPreUpdate();
         return this;

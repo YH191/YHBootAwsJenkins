@@ -1,42 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<%@ include file="../layout/header.jspf" %>
-<div id="posts_list">
+  <%@ include file="../layout/header.jspf" %>
+  <div id="posts_list">
     <div class="container col-md-4">
-        <form id="user-modify-form" onsubmit="return validateForm(event)">
-            <label for="id"></label>
-            <input type="hidden" id="id" name="id" value="${user.id}" />
-            <input type="hidden" id="modifiedDate" name="modifiedDate" value="${user.modifiedDate}" />
-            <div class="form-group">
-                <label for="username">아이디</label>
-                <input type="text" id="username" value="${user.username}" class="form-control" readonly />
-            </div>
+      <form id="user-modify-form" onsubmit="return validateForm(event)">
+        <label for="id"></label>
+        <input type="hidden" id="id" name="id" value="${user.id}" />
+        <input type="hidden" id="modifiedDate" name="modifiedDate" value="${user.modifiedDate}" />
+        <div class="form-group">
+          <label for="username">아이디</label>
+          <input type="text" id="username" value="${user.username}" class="form-control" readonly />
+        </div>
 
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="수정할 비밀번호를 입력해주세요" required />
-                <span id="valid_password" style="color: red;"></span>
-            </div>
+        <div class="form-group">
+          <label for="password">비밀번호</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="수정할 비밀번호를 입력해주세요" required />
+          <span id="valid_password" style="color: red"></span>
+        </div>
 
-            <div class="form-group">
-                <label for="nickname">닉네임</label>
-                <input type="text" id="nickname" name="nickname" value="${user.nickname}" class="form-control" placeholder="수정할 닉네임을 입력해주세요" required />
-                <span id="valid_nickname" style="color: red;"></span>
-            </div>
+        <div class="form-group">
+          <label for="nickname">닉네임</label>
+          <input type="text" id="nickname" name="nickname" value="${user.nickname}" class="form-control" placeholder="수정할 닉네임을 입력해주세요" required />
+          <span id="valid_nickname" style="color: red"></span>
+        </div>
 
-            <div class="form-group">
-                <label for="email">이메일</label>
-                <input type="email" id="email" value="${user.email}" class="form-control" readonly />
-            </div>
+        <div class="form-group">
+          <label for="email">이메일</label>
+          <input type="email" id="email" value="${user.email}" class="form-control" readonly />
+        </div>
 
-            <button id="btn-user-modify" class="btn btn-primary">완료</button>
-            <a href="/" role="button" class="btn btn-info">취소</a>
-        </form>
+        <button id="btn-user-modify" class="btn btn-primary">완료</button>
+        <a href="/" role="button" class="btn btn-info">취소</a>
+      </form>
     </div>
-</div>
-<%@ include file="../layout/footer.jspf" %>
+  </div>
+  <%@ include file="../layout/footer.jspf" %>
 </html>
 
 <script>
@@ -63,23 +62,23 @@
     }
 
     swal({
-      title: "수정하시겠습니까?",
-      icon: "warning",
+      title: '수정하시겠습니까?',
+      icon: 'warning',
       buttons: {
         confirm: {
-          text: "수정",
+          text: '수정',
           value: true,
           visible: true,
-          className: "btn-primary",
-          closeModal: true
+          className: 'btn-primary',
+          closeModal: true,
         },
         cancel: {
-          text: "취소",
+          text: '취소',
           value: false,
           visible: true,
-          className: "",
+          className: '',
           closeModal: true,
-        }
+        },
       },
       dangerMode: false,
     }).then((confirm) => {
@@ -89,43 +88,43 @@
 
         var form = document.getElementById('user-modify-form');
         var data = {
-          id: form.elements["id"].value,
-          modifiedDate: form.elements["modifiedDate"].value,
-          username: form.elements["username"].value,
-          password: form.elements["password"].value,
-          nickname: form.elements["nickname"].value
+          id: form.elements['id'].value,
+          modifiedDate: form.elements['modifiedDate'].value,
+          username: form.elements['username'].value,
+          password: form.elements['password'].value,
+          nickname: form.elements['nickname'].value,
         };
 
         fetch('/api/user', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         })
           .then(function (response) {
             if (response.ok) {
               swal({
-                title: "회원 수정 완료",
-                text: "회원 정보가 수정되었습니다.",
-                icon: "success",
+                title: '회원 수정 완료',
+                text: '회원 정보가 수정되었습니다.',
+                icon: 'success',
               }).then(() => {
-                window.location.href = "/";
+                window.location.href = '/';
               });
             } else if (response.status === 500) {
               swal({
-                title: "닉네임 오류",
-                text: "이미 사용중인 닉네임입니다.",
-                icon: "error",
+                title: '닉네임 오류',
+                text: '이미 사용중인 닉네임입니다.',
+                icon: 'error',
               });
               document.getElementById('nickname').focus();
               document.getElementById('btn-user-modify').disabled = false;
               document.getElementById('btn-user-modify').textContent = '완료';
             } else {
               swal({
-                title: "오류 발생",
-                text: "오류가 발생했습니다.",
-                icon: "error",
+                title: '오류 발생',
+                text: '오류가 발생했습니다.',
+                icon: 'error',
               });
               document.getElementById('btn-user-modify').disabled = false;
               document.getElementById('btn-user-modify').textContent = '완료';
@@ -134,9 +133,9 @@
           })
           .catch(function (error) {
             swal({
-              title: "오류 발생",
-              text: "오류가 발생했습니다.",
-              icon: "error",
+              title: '오류 발생',
+              text: '오류가 발생했습니다.',
+              icon: 'error',
             });
             console.log(error);
           });
