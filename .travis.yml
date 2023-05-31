@@ -23,13 +23,13 @@ before_deploy:
   - cp build/libs/*.jar before-deploy/
   - cd before-deploy && zip -r before-deploy * # before-deploy로 이동후 전체 압축
   - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동후 deploy 디렉토리 생성
-  - mv before-deploy/before-deploy.zip deploy/YHBootAwsTravis.zip # deploy로 zip파일 이동
+  - mv before-deploy/before-deploy.zip deploy/YHBootAwsJenkins.zip # deploy로 zip파일 이동
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: YHBootAwsTravis
+    bucket: YHBootAwsJenkins
     region: ap-northeast-2
     skip_cleanup: true
     acl: private # zip 파일 접근을 private로
@@ -39,11 +39,11 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: YHBootAwsTravis # S3 버킷
-    key: YHBootAwsTravis.zip # 빌드 파일을  압축해서 전달
+    bucket: YHBootAwsJenkins # S3 버킷
+    key: YHBootAwsJenkins.zip # 빌드 파일을  압축해서 전달
     bundle_type: zip
-    application: YHBootAwsTravis # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
-    deployment_group: YHBootAwsTravis-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    application: YHBootAwsJenkins # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: YHBootAwsJenkins-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
     region: ap-northeast-2
     wait-until-deployed: true
 
