@@ -55,7 +55,6 @@ public class User extends BaseTimeEntity implements Serializable {
         return this.role.getValue();
     }
 
-    /* 기본 생성자에서 role을 USER로 설정하는 것을 변경 */
     public User(String username, String nickname, String password, String email, Role role) {
         this.username = username;
         this.nickname = nickname;
