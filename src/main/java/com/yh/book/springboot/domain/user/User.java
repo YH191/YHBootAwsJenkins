@@ -50,11 +50,12 @@ public class User extends BaseTimeEntity implements Serializable {
         this.onPreUpdate();
         return this;
     }
-
+    /* 사용자의 role 반환 */
     public String getRoleValue() {
         return this.role.getValue();
     }
 
+    /* admin 사용자는 기본 admin 권한 부여 */
     public User(String username, String nickname, String password, String email, Role role) {
         this.username = username;
         this.nickname = nickname;
