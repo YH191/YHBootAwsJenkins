@@ -29,7 +29,7 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: YHBootAwsTravis
+    bucket: yhbootawstravis
     region: ap-northeast-2
     skip_cleanup: true
     acl: private # zip 파일 접근을 private로
@@ -39,7 +39,7 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: YHBootAwsTravis # S3 버킷
+    bucket: yhbootawstravis # S3 버킷
     key: YHBootAwsTravis.zip # 빌드 파일을  압축해서 전달
     bundle_type: zip
     application: YHBootAwsTravis # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
