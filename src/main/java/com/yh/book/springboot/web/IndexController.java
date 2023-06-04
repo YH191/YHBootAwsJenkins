@@ -29,6 +29,11 @@ public class IndexController {
 
     private final PostsService postsService;
 
+    @GetMapping("/test")
+    public String testPage() {
+        return "test";
+    }
+
     @GetMapping("/") /* default page = 0, size = 10 */
     public String index(Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
     Pageable pageable, @LoginUser UserDto.Response user) {
