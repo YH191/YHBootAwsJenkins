@@ -50,7 +50,7 @@ public class IndexController {
     @GetMapping("/posts") /* default page = 0, size = 10 */
     public String posts(Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
     Pageable pageable, @LoginUser UserDto.Response user) {
-//        Page<Posts> list = postsService.pageList(pageable);
+        Page<Posts> list = postsService.pageList(pageable);
 
         if (user != null) {
             model.addAttribute("user", user);
@@ -59,11 +59,11 @@ public class IndexController {
             model.addAttribute("userRole", user.getRole().getValue()); // userRole 값을 추가로 전달
         }
 
-//        model.addAttribute("list", list);
-//        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-//        model.addAttribute("next", pageable.next().getPageNumber());
-//        model.addAttribute("hasNext", list.hasNext());
-//        model.addAttribute("hasPrev", list.hasPrevious());
+        model.addAttribute("list", list);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasNext", list.hasNext());
+        model.addAttribute("hasPrev", list.hasPrevious());
 
         return "posts/posts";
     }
