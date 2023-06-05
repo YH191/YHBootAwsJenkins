@@ -36,13 +36,13 @@ public class IndexController {
 
     @GetMapping("/") /* default page = 0, size = 10 */
     public String index(Model model, @LoginUser UserDto.Response user) {
-//
-//        if (user != null) {
-//            model.addAttribute("user", user);
-//            model.addAttribute("username", user.getUsername());
-//            model.addAttribute("loginInfo", user.getLoginInfo());
-//        }
-//
+
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("loginInfo", user.getLoginInfo());
+        }
+
 
         return "index";
     }
