@@ -37,15 +37,15 @@ public class IndexController {
     @GetMapping("/") /* default page = 0, size = 10 */
     public String index(Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
     Pageable pageable, @LoginUser UserDto.Response user) {
-        Page<Posts> list = postsService.pageList(pageable);
-
-        if (user != null) {
-            model.addAttribute("user", user);
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
-        }
-
-        model.addAttribute("list", list);
+//        Page<Posts> list = postsService.pageList(pageable);
+//
+//        if (user != null) {
+//            model.addAttribute("user", user);
+//            model.addAttribute("username", user.getUsername());
+//            model.addAttribute("loginInfo", user.getLoginInfo());
+//        }
+//
+//        model.addAttribute("list", list);
 
         return "index";
     }
