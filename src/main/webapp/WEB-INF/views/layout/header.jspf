@@ -51,3 +51,9 @@
     </div>
   </div>
 </head>
+<script>
+//세션30분에 맞춰 로그아웃되게
+setTimeout(function() {
+    location.reload();
+}, 1800000); // 30분(30 * 60 * 1000)
+</script>
