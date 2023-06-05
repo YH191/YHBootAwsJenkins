@@ -49,6 +49,7 @@ public class CustomOAuth2UserService implements
 
         /* 세션 정보를 저장하는 직렬화된 dto 클래스 */
         session.setAttribute("user", new UserDto.Response(user));
+        session.setMaxInactiveInterval(1800);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleValue())),
