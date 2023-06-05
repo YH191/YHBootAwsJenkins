@@ -10,13 +10,13 @@
 
 <body>
 <div id="main-content-wrapper">
-  /*<div id="left-container">
+  <div id="left-container">
     <div id="calendar"></div>
   </div>
   <div id="right-container">
     <div id="chart-container"></div>
     <div id="weather-info"></div>
-  </div>*/
+  </div>
 <div>
 </body>
 

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -46,6 +47,8 @@ public class IndexController {
 
         return "index";
     }
+
+    @ExceptionHandler(Exception.class)
     @GetMapping("/posts") /* default page = 0, size = 10 */
     public String posts(Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
     Pageable pageable, @LoginUser UserDto.Response user) {
