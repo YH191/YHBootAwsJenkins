@@ -49,25 +49,33 @@ public class IndexController {
     }
 
     @ExceptionHandler(Exception.class)
-    @GetMapping("/posts") /* default page = 0, size = 10 */
+
+
+    @GetMapping("/posts")
     public String posts(Model model, @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC)
     Pageable pageable, @LoginUser UserDto.Response user) {
-        Page<Posts> list = postsService.pageList(pageable);
 
-        if (user != null) {
-            model.addAttribute("user", user);
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
-            model.addAttribute("userRole", user.getRole().getValue()); // userRole 값을 추가로 전달
+        try {
+            Page<Posts> list = postsService.pageList(pageable);
+
+            if (user != null) {
+                model.addAttribute("user", user);
+                model.addAttribute("username", user.getUsername());
+                model.addAttribute("loginInfo", user.getLoginInfo());
+                model.addAttribute("userRole", user.getRole().getValue()); // userRole 값을 추가로 전달
+            }
+
+            model.addAttribute("list", list);
+            model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+            model.addAttribute("next", pageable.next().getPageNumber());
+            model.addAttribute("hasNext", list.hasNext());
+            model.addAttribute("hasPrev", list.hasPrevious());
+
+            return "posts/posts";
+        } catch (Exception e) {
+            // 예외가 발생하면 GlobalExceptionHandler의 handleException 메소드를 통해 에러 페이지로 이동합니다.
+            throw e;
         }
-
-        model.addAttribute("list", list);
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-        model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("hasNext", list.hasNext());
-        model.addAttribute("hasPrev", list.hasPrevious());
-
-        return "posts/posts";
     }
 
     /* 글 작성 */

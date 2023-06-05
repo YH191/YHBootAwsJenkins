@@ -5,7 +5,6 @@
 </head>
 <body>
     <h1>Error</h1>
-    <p>Status Code: ${statusCode}</p>
-    <p>Error Message: ${errorMessage}</p>
+    <p>${errorMessage}</p>
 </body>
 </html>
