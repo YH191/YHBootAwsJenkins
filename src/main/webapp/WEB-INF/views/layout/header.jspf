@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <%String username = (String) request.getAttribute("username");%> <%String loginInfo = (String) request.getAttribute("loginInfo");%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%String username = (String) request.getAttribute("username");%>
+<%String login_Info = (String) request.getAttribute("login_Info");%>
 <head>
   <title>스프링부트 웹 서비스</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -19,10 +22,10 @@
     </div>
     <div class="btn-group-secondary">
       <% if (username != null) { %>
-      <c:set var="loginInfo" value="${loginInfo}" />
+      <c:set var="login_Info" value="${login_Info}" />
       <div class="user-info">
         <span class="username">${username}님 로그인</span>
-        <% if (!"google".equals(loginInfo) && !"naver".equals(loginInfo)) { %>
+        <% if (!"google".equals(login_Info) && !"naver".equals(login_Info)) { %>
         <a href="/modify" role="button" class="btn btn-outline-secondary">회원정보 수정</a>
         <% } %>
         <a href="/logout" role="button" class="btn btn-outline-secondary">로그아웃</a>

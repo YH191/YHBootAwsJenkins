@@ -46,7 +46,7 @@ public class UserDto {
                     .password(password)
                     .nickname(nickname)
                     .email(email)
-                    .loginInfo("local")
+                    .login_Info("local")
                     .role(username.equalsIgnoreCase("admin")? role.ADMIN : role.USER)
                     .build();
             return user;
@@ -60,7 +60,7 @@ public class UserDto {
         private final String username;
         private final String nickname;
         private final String email;
-        private final String loginInfo;
+        private final String login_Info;
         private final Role role;
         private final String modifiedDate;
 
@@ -69,7 +69,7 @@ public class UserDto {
             this.id = user.getId();
             this.username = getUsernameWithoutDomain(user.getUsername());
             this.nickname = user.getNickname();
-            this.loginInfo = user.getLoginInfo();
+            this.login_Info = user.getLogin_Info();
             this.email = user.getEmail();
             this.role = user.getRole();
             this.modifiedDate = user.getModifiedDate();

@@ -40,7 +40,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("login_Info", user.getLogin_Info());
         }
 
 
@@ -55,7 +55,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("login_Info", user.getLogin_Info());
             model.addAttribute("userRole", user.getRole().getValue()); // userRole 값을 추가로 전달
         }
 
@@ -75,7 +75,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("login_Info", user.getLogin_Info());
         }
         return "posts/posts-write";
     }
@@ -95,7 +95,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("login_Info", user.getLogin_Info());
 
             /* 게시글 작성자 본인인지 확인 */
             if (dto.getUserId().equals(user.getId())) {
@@ -124,7 +124,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("login_Info", user.getLogin_Info());
         }
         model.addAttribute("posts", dto);
 
@@ -139,7 +139,7 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("login_Info", user.getLogin_Info());
             model.addAttribute("userRole", user.getRole().getValue()); // userRole 값을 추가로 전달
         }
         model.addAttribute("searchList", searchList);

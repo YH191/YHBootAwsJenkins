@@ -20,7 +20,7 @@ public class OAuthAttributes {
     private String nameAttributeKey;            // 사용자 이름에 해당하는 속성 키
     private String username;                    // 사용자 이름
     private String nickname;                    // 사용자 닉네임
-    private String loginInfo;                   // 로그인 정보
+    private String login_Info;                   // 로그인 정보
     private String email;                       // 사용자 이메일 주소
     private Role role;                          // 사용자의 역할(Role)
 
@@ -42,7 +42,7 @@ public class OAuthAttributes {
                 .username((String) attributes.get("email"))      // 구글의 이메일 속성 값을 사용자 이름으로 설정
                 .email((String) attributes.get("email"))         // 구글의 이메일 속성 값을 이메일로 설정
                 .nickname((String) attributes.get("name"))       // 구글의 이름 속성 값을 닉네임으로 설정
-                .loginInfo((String) "google")                    // 로그인 정보를 "google"로 설정
+                .login_Info((String) "google")                    // 로그인 정보를 "google"로 설정
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)        // OAuth 2.0 표준 스펙에서 정의된 클레임(Claim) 중 하나인 "sub" (Subject)을 반환
                 .build();
@@ -59,7 +59,7 @@ public class OAuthAttributes {
                 .username((String) response.get("email"))        // 네이버의 이메일 속성 값을 사용자 이름으로 설정
                 .email((String) response.get("email"))           // 네이버의 이메일 속성 값을 이메일로 설정
                 .nickname((String) response.get("id"))           // 네이버의 아이디 속성 값을 닉네임으로 설정
-                .loginInfo((String) "naver")                     // 로그인 정보를 "naver"로 설정
+                .login_Info((String) "naver")                     // 로그인 정보를 "naver"로 설정
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)        // 네이버에서 사용자 식별자를 얻기 위해 "id" 속성을 사용
                 .build();
@@ -70,7 +70,7 @@ public class OAuthAttributes {
                 .username(email)                                 // 사용자 이메일을 사용자 이름으로 설정
                 .email(email)                                    // 사용자 이메일 설정
                 .nickname(nickname)                              // 사용자 닉네임 설정
-                .loginInfo(loginInfo)                            // 로그인 정보 설정
+                .login_Info(login_Info)                            // 로그인 정보 설정
                 .role(Role.SOCIAL)                               // 사용자 역할을 "SOCIAL"로 설정
                 .build();
     }

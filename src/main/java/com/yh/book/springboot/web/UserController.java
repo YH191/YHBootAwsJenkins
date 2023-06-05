@@ -97,7 +97,7 @@ public class UserController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("loginInfo", user.getLoginInfo());
+            model.addAttribute("login_Info", user.getLogin_Info());
         }
         return "user/user-modify";
     }

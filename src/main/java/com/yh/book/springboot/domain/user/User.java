@@ -33,7 +33,7 @@ public class User extends BaseTimeEntity implements Serializable {
     private String email;
 
     @Column(nullable = true, length = 30, unique = false)
-    private String loginInfo = "local";
+    private String login_Info = "local";
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -61,7 +61,7 @@ public class User extends BaseTimeEntity implements Serializable {
         this.nickname = nickname;
         this.password = password;
         this.email = email;
-        this.loginInfo = "local";
+        this.login_Info = "local";
         if (username.equalsIgnoreCase("admin")) {
             this.role = Role.ADMIN;
         } else {
