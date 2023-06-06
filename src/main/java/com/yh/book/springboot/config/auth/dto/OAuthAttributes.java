@@ -58,7 +58,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .username((String) response.get("email"))        // 네이버의 이메일 속성 값을 사용자 이름으로 설정
                 .email((String) response.get("email"))           // 네이버의 이메일 속성 값을 이메일로 설정
-                .nickname((String) response.get("nickname"))           // 네이버의 아이디 속성 값을 닉네임으로 설정
+                .nickname((String) response.get("name"))           // 네이버의 아이디 속성 값을 닉네임으로 설정
                 .login_Info((String) "naver")                     // 로그인 정보를 "naver"로 설정
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)        // 네이버에서 사용자 식별자를 얻기 위해 "id" 속성을 사용
