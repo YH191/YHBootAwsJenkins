@@ -12,8 +12,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 @RestController
@@ -52,23 +53,28 @@ public class WeatherApiController {
 
     // 현재 날짜 가져오기
     public String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
+        LocalDate currentDate = LocalDate.now();
+        return currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-        if ((hour >= 0 && hour < 2) || (hour == 2 && minute < 20)) {
-            // 00:00 ~ 02:19 사이에는 이전 날짜로 설정
-            calendar.add(Calendar.DAY_OF_MONTH, -1);
-        }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        return dateFormat.format(calendar.getTime());
+//        Calendar calendar = Calendar.getInstance();
+//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        int minute = calendar.get(Calendar.MINUTE);
+//
+//        if ((hour >= 0 && hour < 2) || (hour == 2 && minute < 20)) {
+//            // 00:00 ~ 02:19 사이에는 이전 날짜로 설정
+//            calendar.add(Calendar.DAY_OF_MONTH, -1);
+//        }
+//
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+//        return dateFormat.format(calendar.getTime());
     }
 
     // 현재 시간 가져오기
     public String getCurrentTime() {
-        Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        Calendar calendar = Calendar.getInstance();
+//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        LocalTime currentTime = LocalTime.now();
+        int hour = currentTime.getHour();
 
         if (hour >= 0 && hour < 3) {
             return "2300";
